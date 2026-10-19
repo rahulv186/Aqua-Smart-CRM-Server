@@ -33,6 +33,8 @@ class Organization(models.Model):
 
     state = models.CharField(max_length=100,blank=True,null=True)
 
+    country = models.CharField(max_length=100, blank=True)
+
     postal_code = models.CharField(max_length=20,blank=True,null=True)
 
     timezone = models.CharField(max_length=50,default="Asia/Kolkata")
@@ -88,13 +90,24 @@ class OrganizationOwnerProfile(models.Model):
         default=uuid.uuid4,
         editable=False,
     )
-    user_id = models.UUIDField(unique=True)
+
+    user_id = models.OneToOneField("accounts.User", on_delete=models.CASCADE, related_name="organization_owner_profile")
+    employee_code = models.CharField(max_length=50, unique=True)
+
+    name = models.CharField(max_length=150)
     address = models.TextField(blank=True, null=True)
     date_of_birth = models.DateField(blank=True, null=True)
+    city = models.CharField(max_length=100, blank=True)
+    state = models.CharField(max_length=100, blank=True)
+    country = models.CharField(max_length=100, blank=True)
+    postal_code = models.CharField(max_length=20, blank=True)
+    alternate_contact = models.CharField(max_length=20, blank=True)
+
 
     organization = models.OneToOneField(Organization, on_delete=models.CASCADE, related_name="owner")
 
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
+    modified_at = models.DateTimeField(auto_now=True, editable=False)
 
     class Meta:
         db_table = "organization_owners"
