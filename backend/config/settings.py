@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     "drf_spectacular",
 
     "accounts",
-    "organizations",
+    "companys",
     "customers",
     "technicians",
     "managers",

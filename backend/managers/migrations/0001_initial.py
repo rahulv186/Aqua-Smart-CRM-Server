@@ -10,7 +10,7 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('organizations', '0004_alter_organization_plan'),
+        ('companys', '0004_alter_company_plan'),
     ]
 
     operations = [
@@ -30,7 +30,7 @@ class Migration(migrations.Migration):
                 ('postal_code', models.CharField(blank=True, max_length=20)),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('updated_at', models.DateTimeField(auto_now=True)),
-                ('organization_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='managers', to='organizations.organization')),
+                ('company_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='managers', to='companys.company')),
             ],
             options={
                 'db_table': 'manager_user_profiles',

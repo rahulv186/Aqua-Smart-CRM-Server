@@ -11,7 +11,7 @@ class Migration(migrations.Migration):
     dependencies = [
         ('assets', '0001_initial'),
         ('files', '0001_initial'),
-        ('organizations', '0004_alter_organization_plan'),
+        ('companys', '0004_alter_company_plan'),
     ]
 
     operations = [
@@ -22,7 +22,7 @@ class Migration(migrations.Migration):
         ),
         migrations.AddField(
             model_name='inventory_item',
-            name='organization_id',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='inventory_items', to='organizations.organization'),
+            name='company_id',
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='inventory_items', to='companys.company'),
         ),
     ]

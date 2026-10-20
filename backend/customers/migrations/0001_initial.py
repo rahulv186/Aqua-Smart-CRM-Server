@@ -11,7 +11,7 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('organizations', '0001_initial'),
+        ('companys', '0001_initial'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
@@ -31,7 +31,7 @@ class Migration(migrations.Migration):
                 ('postal_code', models.CharField(blank=True, max_length=20)),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('updated_at', models.DateTimeField(auto_now=True)),
-                ('organization_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='customer_user_profile', to='organizations.organization')),
+                ('company_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='customer_user_profile', to='companys.company')),
                 ('userid', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='customer_user_profile', to=settings.AUTH_USER_MODEL)),
             ],
             options={

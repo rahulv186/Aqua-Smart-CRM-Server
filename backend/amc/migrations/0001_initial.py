@@ -11,7 +11,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('customers', '0002_alter_customeruserprofile_options_and_more'),
-        ('organizations', '0004_alter_organization_plan'),
+        ('companys', '0004_alter_company_plan'),
         ('technicians', '0001_initial'),
     ]
 
@@ -32,12 +32,12 @@ class Migration(migrations.Migration):
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('updated_at', models.DateTimeField(auto_now=True)),
                 ('customer_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='amc_contracts', to='customers.customeruserprofile')),
-                ('organization_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='amc_contracts', to='organizations.organization')),
+                ('company_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='amc_contracts', to='companys.company')),
             ],
             options={
                 'db_table': 'amc_contracts',
                 'ordering': ['id'],
-                'unique_together': {('organization_id', 'contract_number')},
+                'unique_together': {('company_id', 'contract_number')},
             },
         ),
         migrations.CreateModel(
@@ -49,7 +49,7 @@ class Migration(migrations.Migration):
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('updated_at', models.DateTimeField(auto_now=True)),
                 ('contract_id', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='amc_visits', to='amc.amc_contract')),
-                ('organization_id', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='amc_visits', to='organizations.organization')),
+                ('company_id', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='amc_visits', to='companys.company')),
                 ('technician', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='amc_visits', to='technicians.technicianuserprofile')),
             ],
             options={

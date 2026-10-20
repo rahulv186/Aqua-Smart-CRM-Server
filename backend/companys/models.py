@@ -4,7 +4,7 @@ from django.db import models
 from django.utils import timezone
 
 
-class Organization(models.Model):
+class Company(models.Model):
 
     PLANS = {("basic", "Basic"), ("standard", "Standard"), ("premium", "Premium")}
 
@@ -17,7 +17,7 @@ class Organization(models.Model):
 
     id = models.UUIDField(primary_key=True,default=uuid.uuid4,editable=False,)
 
-    organization_name = models.CharField(max_length=150)
+    company_name = models.CharField(max_length=150)
 
     slug = models.SlugField(max_length=150,unique=True)
 
@@ -56,7 +56,7 @@ class Organization(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
 
-#   owner          OrganizationOwner?
+#   owner          CompanyOwner?
 #   managers       Manager[]
 #   technicians    Technician[]
 #   customers      Customer[]
@@ -74,7 +74,7 @@ class Organization(models.Model):
 
 
     class Meta:
-        db_table = "organizations"
+        db_table = "companys"
         ordering = ["created_at"]
         indexes = [
             models.Index(fields=["is_active"]),
@@ -83,7 +83,7 @@ class Organization(models.Model):
     def __str__(self):
         return self.name
 
-class OrganizationOwnerProfile(models.Model):
+class CompanyOwnerProfile(models.Model):
 
     id = models.UUIDField(
         primary_key=True,
@@ -91,7 +91,7 @@ class OrganizationOwnerProfile(models.Model):
         editable=False,
     )
 
-    user_id = models.OneToOneField("accounts.User", on_delete=models.CASCADE, related_name="organization_owner_profile")
+    user_id = models.OneToOneField("accounts.User", on_delete=models.CASCADE, related_name="company_owner_profile")
     employee_code = models.CharField(max_length=50, unique=True, blank=True, null=True)
 
     name = models.CharField(max_length=150, blank=True, null=True)
@@ -104,13 +104,13 @@ class OrganizationOwnerProfile(models.Model):
     alternate_contact = models.CharField(max_length=20, blank=True)
 
 
-    organization = models.OneToOneField(Organization, on_delete=models.CASCADE, related_name="owner")
+    company = models.OneToOneField(Company, on_delete=models.CASCADE, related_name="owner")
 
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
     modified_at = models.DateTimeField(auto_now=True, editable=False)
 
     class Meta:
-        db_table = "organization_owners"
+        db_table = "company_owners"
         ordering = ["created_at"]
 
     def __str__(self):

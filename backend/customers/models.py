@@ -12,7 +12,7 @@ class CustomerUserProfile(models.Model):
         editable=False,
     )
     user_id = models.ForeignKey("accounts.User", on_delete=models.CASCADE, related_name="customer_user_profile")
-    organization_id = models.ForeignKey("organizations.Organization", on_delete=models.CASCADE, related_name="customer_user_profile")
+    company_id = models.ForeignKey("companys.Company", on_delete=models.CASCADE, related_name="customer_user_profile")
     customer_code = models.CharField(max_length=50, unique=True, blank=True, null=True)
 
     name = models.CharField(max_length=150, blank=True, null=True)

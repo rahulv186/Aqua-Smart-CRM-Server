@@ -12,7 +12,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('customers', '0002_alter_customeruserprofile_options_and_more'),
-        ('organizations', '0004_alter_organization_plan'),
+        ('companys', '0004_alter_company_plan'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
@@ -36,7 +36,7 @@ class Migration(migrations.Migration):
                 ('updated_at', models.DateTimeField(auto_now=True)),
                 ('created_by', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='created_invoices', to=settings.AUTH_USER_MODEL)),
                 ('customer_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='invoices', to='customers.customeruserprofile')),
-                ('organization_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='invoices', to='organizations.organization')),
+                ('company_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='invoices', to='companys.company')),
             ],
             options={
                 'verbose_name': 'Invoice',

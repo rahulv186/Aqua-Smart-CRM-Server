@@ -8,7 +8,7 @@ from django.urls import reverse
 class invoice(models.Model):
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    organization_id = models.ForeignKey("organizations.Organization", on_delete=models.CASCADE, related_name="invoices")
+    company_id = models.ForeignKey("companys.Company", on_delete=models.CASCADE, related_name="invoices")
     invoice_number = models.CharField(max_length=50, unique=True)
     customer_id = models.ForeignKey("customers.CustomerUserProfile", on_delete=models.CASCADE, related_name="invoices")
     created_by = models.ForeignKey("accounts.User", on_delete=models.CASCADE, related_name="created_invoices")

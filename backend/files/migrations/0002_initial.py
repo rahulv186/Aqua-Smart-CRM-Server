@@ -12,7 +12,7 @@ class Migration(migrations.Migration):
     dependencies = [
         ('files', '0001_initial'),
         ('invoice', '0001_initial'),
-        ('organizations', '0004_alter_organization_plan'),
+        ('companys', '0004_alter_company_plan'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
@@ -24,8 +24,8 @@ class Migration(migrations.Migration):
         ),
         migrations.AddField(
             model_name='invoice_file',
-            name='organization_id',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='organization_invoice_files', to='organizations.organization'),
+            name='company_id',
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='company_invoice_files', to='companys.company'),
         ),
         migrations.AddField(
             model_name='invoice_file',

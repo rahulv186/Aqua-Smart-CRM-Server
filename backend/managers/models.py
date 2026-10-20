@@ -11,7 +11,7 @@ class ManagerUserProfile(models.Model):
     department = models.CharField(max_length=100, blank=True)
     is_active = models.BooleanField(default=True, blank=True)
     name = models.CharField(max_length=255, blank=True)
-    organization_id = models.ForeignKey("organizations.Organization", on_delete=models.CASCADE, related_name="managers")
+    company_id = models.ForeignKey("companys.Company", on_delete=models.CASCADE, related_name="managers")
     addressLine1 = models.TextField(blank=True, max_length=255)
     addressLine2 = models.TextField(blank=True, max_length=255)
     city = models.CharField(max_length=100, blank=True)

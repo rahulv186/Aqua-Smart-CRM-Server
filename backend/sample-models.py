@@ -28,7 +28,7 @@ class Adminrefreshtoken(models.Model):
 
 class Amccontract(models.Model):
     id = models.UUIDField(primary_key=True)
-    organizationid = models.ForeignKey('Organization', models.DO_NOTHING, db_column='organizationId')  # Field name made lowercase.
+    companyid = models.ForeignKey('Company', models.DO_NOTHING, db_column='companyId')  # Field name made lowercase.
     customerid = models.ForeignKey('Customer', models.DO_NOTHING, db_column='customerId')  # Field name made lowercase.
     assetid = models.ForeignKey('Asset', models.DO_NOTHING, db_column='assetId', blank=True, null=True)  # Field name made lowercase.
     contractnumber = models.TextField(db_column='contractNumber')  # Field name made lowercase.
@@ -47,7 +47,7 @@ class Amccontract(models.Model):
     class Meta:
         managed = False
         db_table = 'AmcContract'
-        unique_together = (('organizationid', 'contractnumber'),)
+        unique_together = (('companyid', 'contractnumber'),)
 
 
 class Amcvisit(models.Model):
@@ -66,7 +66,7 @@ class Amcvisit(models.Model):
 
 class Asset(models.Model):
     id = models.UUIDField(primary_key=True)
-    organizationid = models.ForeignKey('Organization', models.DO_NOTHING, db_column='organizationId')  # Field name made lowercase.
+    companyid = models.ForeignKey('Company', models.DO_NOTHING, db_column='companyId')  # Field name made lowercase.
     customerid = models.ForeignKey('Customer', models.DO_NOTHING, db_column='customerId')  # Field name made lowercase.
     assetcode = models.TextField(db_column='assetCode', blank=True, null=True)  # Field name made lowercase.
     brand = models.TextField(blank=True, null=True)
@@ -83,12 +83,12 @@ class Asset(models.Model):
     class Meta:
         managed = False
         db_table = 'Asset'
-        unique_together = (('organizationid', 'assetcode'),)
+        unique_together = (('companyid', 'assetcode'),)
 
 
 class Auditlog(models.Model):
     id = models.UUIDField(primary_key=True)
-    organizationid = models.ForeignKey('Organization', models.DO_NOTHING, db_column='organizationId', blank=True, null=True)  # Field name made lowercase.
+    companyid = models.ForeignKey('Company', models.DO_NOTHING, db_column='companyId', blank=True, null=True)  # Field name made lowercase.
     actorid = models.ForeignKey('User', models.DO_NOTHING, db_column='actorId', blank=True, null=True)  # Field name made lowercase.
     actoradminid = models.ForeignKey('Platformadmin', models.DO_NOTHING, db_column='actorAdminId', blank=True, null=True)  # Field name made lowercase.
     action = models.TextField()
@@ -106,7 +106,7 @@ class Auditlog(models.Model):
 
 class Complaint(models.Model):
     id = models.UUIDField(primary_key=True)
-    organizationid = models.ForeignKey('Organization', models.DO_NOTHING, db_column='organizationId')  # Field name made lowercase.
+    companyid = models.ForeignKey('Company', models.DO_NOTHING, db_column='companyId')  # Field name made lowercase.
     customerid = models.ForeignKey('Customer', models.DO_NOTHING, db_column='customerId')  # Field name made lowercase.
     assetid = models.ForeignKey(Asset, models.DO_NOTHING, db_column='assetId', blank=True, null=True)  # Field name made lowercase.
     linkedjobid = models.ForeignKey('Servicejob', models.DO_NOTHING, db_column='linkedJobId', blank=True, null=True)  # Field name made lowercase.
@@ -125,12 +125,12 @@ class Complaint(models.Model):
     class Meta:
         managed = False
         db_table = 'Complaint'
-        unique_together = (('organizationid', 'complaintnumber'),)
+        unique_together = (('companyid', 'complaintnumber'),)
 
 
 class Customer(models.Model):
     id = models.UUIDField(primary_key=True)
-    organizationid = models.ForeignKey('Organization', models.DO_NOTHING, db_column='organizationId')  # Field name made lowercase.
+    companyid = models.ForeignKey('Company', models.DO_NOTHING, db_column='companyId')  # Field name made lowercase.
     userid = models.OneToOneField('User', models.DO_NOTHING, db_column='userId', blank=True, null=True)  # Field name made lowercase.
     customercode = models.TextField(db_column='customerCode', blank=True, null=True)  # Field name made lowercase.
     name = models.TextField()
@@ -151,12 +151,12 @@ class Customer(models.Model):
     class Meta:
         managed = False
         db_table = 'Customer'
-        unique_together = (('organizationid', 'customercode'),)
+        unique_together = (('companyid', 'customercode'),)
 
 
 class Fileobject(models.Model):
     id = models.UUIDField(primary_key=True)
-    organizationid = models.ForeignKey('Organization', models.DO_NOTHING, db_column='organizationId')  # Field name made lowercase.
+    companyid = models.ForeignKey('Company', models.DO_NOTHING, db_column='companyId')  # Field name made lowercase.
     customerid = models.ForeignKey(Customer, models.DO_NOTHING, db_column='customerId', blank=True, null=True)  # Field name made lowercase.
     assetid = models.ForeignKey(Asset, models.DO_NOTHING, db_column='assetId', blank=True, null=True)  # Field name made lowercase.
     jobid = models.ForeignKey('Servicejob', models.DO_NOTHING, db_column='jobId', blank=True, null=True)  # Field name made lowercase.
@@ -177,7 +177,7 @@ class Fileobject(models.Model):
 
 class Inventoryitem(models.Model):
     id = models.UUIDField(primary_key=True)
-    organizationid = models.ForeignKey('Organization', models.DO_NOTHING, db_column='organizationId')  # Field name made lowercase.
+    companyid = models.ForeignKey('Company', models.DO_NOTHING, db_column='companyId')  # Field name made lowercase.
     sku = models.TextField(blank=True, null=True)
     name = models.TextField()
     description = models.TextField(blank=True, null=True)
@@ -190,12 +190,12 @@ class Inventoryitem(models.Model):
     class Meta:
         managed = False
         db_table = 'InventoryItem'
-        unique_together = (('organizationid', 'sku'),)
+        unique_together = (('companyid', 'sku'),)
 
 
 class Invitation(models.Model):
     id = models.UUIDField(primary_key=True)
-    organizationid = models.ForeignKey('Organization', models.DO_NOTHING, db_column='organizationId')  # Field name made lowercase.
+    companyid = models.ForeignKey('Company', models.DO_NOTHING, db_column='companyId')  # Field name made lowercase.
     userid = models.ForeignKey('User', models.DO_NOTHING, db_column='userId')  # Field name made lowercase.
     role = models.TextField()  # This field type is a guess.
     tokenhash = models.TextField(db_column='tokenHash', unique=True)  # Field name made lowercase.
@@ -213,7 +213,7 @@ class Invitation(models.Model):
 
 class Invoice(models.Model):
     id = models.UUIDField(primary_key=True)
-    organizationid = models.ForeignKey('Organization', models.DO_NOTHING, db_column='organizationId')  # Field name made lowercase.
+    companyid = models.ForeignKey('Company', models.DO_NOTHING, db_column='companyId')  # Field name made lowercase.
     customerid = models.ForeignKey(Customer, models.DO_NOTHING, db_column='customerId')  # Field name made lowercase.
     servicejobid = models.ForeignKey('Servicejob', models.DO_NOTHING, db_column='serviceJobId', blank=True, null=True)  # Field name made lowercase.
     invoicenumber = models.TextField(db_column='invoiceNumber')  # Field name made lowercase.
@@ -232,7 +232,7 @@ class Invoice(models.Model):
     class Meta:
         managed = False
         db_table = 'Invoice'
-        unique_together = (('organizationid', 'invoicenumber'),)
+        unique_together = (('companyid', 'invoicenumber'),)
 
 
 class Invoiceline(models.Model):
@@ -299,7 +299,7 @@ class Jobstatusevent(models.Model):
 
 class Manager(models.Model):
     id = models.UUIDField(primary_key=True)
-    organizationid = models.ForeignKey('Organization', models.DO_NOTHING, db_column='organizationId')  # Field name made lowercase.
+    companyid = models.ForeignKey('Company', models.DO_NOTHING, db_column='companyId')  # Field name made lowercase.
     userid = models.OneToOneField('User', models.DO_NOTHING, db_column='userId')  # Field name made lowercase.
     employeecode = models.TextField(db_column='employeeCode', blank=True, null=True)  # Field name made lowercase.
     department = models.TextField(blank=True, null=True)
@@ -310,10 +310,10 @@ class Manager(models.Model):
     class Meta:
         managed = False
         db_table = 'Manager'
-        unique_together = (('organizationid', 'employeecode'),)
+        unique_together = (('companyid', 'employeecode'),)
 
 
-class Organization(models.Model):
+class Company(models.Model):
     id = models.UUIDField(primary_key=True)
     name = models.TextField()
     slug = models.TextField(unique=True)
@@ -334,19 +334,19 @@ class Organization(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'Organization'
+        db_table = 'Company'
 
 
-class Organizationowner(models.Model):
+class Companyowner(models.Model):
     id = models.UUIDField(primary_key=True)
-    organizationid = models.OneToOneField(Organization, models.DO_NOTHING, db_column='organizationId')  # Field name made lowercase.
+    companyid = models.OneToOneField(Company, models.DO_NOTHING, db_column='companyId')  # Field name made lowercase.
     userid = models.OneToOneField('User', models.DO_NOTHING, db_column='userId')  # Field name made lowercase.
     createdat = models.DateTimeField(db_column='createdAt')  # Field name made lowercase.
     updatedat = models.DateTimeField(db_column='updatedAt')  # Field name made lowercase.
 
     class Meta:
         managed = False
-        db_table = 'OrganizationOwner'
+        db_table = 'CompanyOwner'
 
 
 class Otpchallenge(models.Model):
@@ -381,7 +381,7 @@ class Passwordresettoken(models.Model):
 
 class Payment(models.Model):
     id = models.UUIDField(primary_key=True)
-    organizationid = models.ForeignKey(Organization, models.DO_NOTHING, db_column='organizationId')  # Field name made lowercase.
+    companyid = models.ForeignKey(Company, models.DO_NOTHING, db_column='companyId')  # Field name made lowercase.
     customerid = models.ForeignKey(Customer, models.DO_NOTHING, db_column='customerId', blank=True, null=True)  # Field name made lowercase.
     invoiceid = models.ForeignKey(Invoice, models.DO_NOTHING, db_column='invoiceId', blank=True, null=True)  # Field name made lowercase.
     amount = models.DecimalField(max_digits=12, decimal_places=2)
@@ -435,7 +435,7 @@ class Refreshtoken(models.Model):
 
 class Reminder(models.Model):
     id = models.UUIDField(primary_key=True)
-    organizationid = models.ForeignKey(Organization, models.DO_NOTHING, db_column='organizationId')  # Field name made lowercase.
+    companyid = models.ForeignKey(Company, models.DO_NOTHING, db_column='companyId')  # Field name made lowercase.
     title = models.TextField()
     description = models.TextField(blank=True, null=True)
     entitytype = models.TextField(db_column='entityType')  # Field name made lowercase.
@@ -453,7 +453,7 @@ class Reminder(models.Model):
 
 class Servicejob(models.Model):
     id = models.UUIDField(primary_key=True)
-    organizationid = models.ForeignKey(Organization, models.DO_NOTHING, db_column='organizationId')  # Field name made lowercase.
+    companyid = models.ForeignKey(Company, models.DO_NOTHING, db_column='companyId')  # Field name made lowercase.
     customerid = models.ForeignKey(Customer, models.DO_NOTHING, db_column='customerId')  # Field name made lowercase.
     assetid = models.ForeignKey(Asset, models.DO_NOTHING, db_column='assetId', blank=True, null=True)  # Field name made lowercase.
     jobnumber = models.TextField(db_column='jobNumber')  # Field name made lowercase.
@@ -474,12 +474,12 @@ class Servicejob(models.Model):
     class Meta:
         managed = False
         db_table = 'ServiceJob'
-        unique_together = (('organizationid', 'jobnumber'),)
+        unique_together = (('companyid', 'jobnumber'),)
 
 
 class Stockmovement(models.Model):
     id = models.UUIDField(primary_key=True)
-    organizationid = models.ForeignKey(Organization, models.DO_NOTHING, db_column='organizationId')  # Field name made lowercase.
+    companyid = models.ForeignKey(Company, models.DO_NOTHING, db_column='companyId')  # Field name made lowercase.
     itemid = models.ForeignKey(Inventoryitem, models.DO_NOTHING, db_column='itemId')  # Field name made lowercase.
     jobid = models.ForeignKey(Servicejob, models.DO_NOTHING, db_column='jobId', blank=True, null=True)  # Field name made lowercase.
     createdbyid = models.ForeignKey('User', models.DO_NOTHING, db_column='createdById', blank=True, null=True)  # Field name made lowercase.
@@ -497,7 +497,7 @@ class Stockmovement(models.Model):
 
 class Technician(models.Model):
     id = models.UUIDField(primary_key=True)
-    organizationid = models.ForeignKey(Organization, models.DO_NOTHING, db_column='organizationId')  # Field name made lowercase.
+    companyid = models.ForeignKey(Company, models.DO_NOTHING, db_column='companyId')  # Field name made lowercase.
     userid = models.OneToOneField('User', models.DO_NOTHING, db_column='userId')  # Field name made lowercase.
     employeecode = models.TextField(db_column='employeeCode', blank=True, null=True)  # Field name made lowercase.
     emergencycontact = models.TextField(db_column='emergencyContact', blank=True, null=True)  # Field name made lowercase.
@@ -515,7 +515,7 @@ class Technician(models.Model):
     class Meta:
         managed = False
         db_table = 'Technician'
-        unique_together = (('organizationid', 'employeecode'),)
+        unique_together = (('companyid', 'employeecode'),)
 
 
 class User(models.Model):

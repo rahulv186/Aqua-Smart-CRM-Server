@@ -12,7 +12,7 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('organizations', '0004_alter_organization_plan'),
+        ('companys', '0004_alter_company_plan'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
@@ -35,7 +35,7 @@ class Migration(migrations.Migration):
                 ('skills', django.contrib.postgres.fields.ArrayField(base_field=models.CharField(max_length=100), blank=True, default=list, size=None)),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('updated_at', models.DateTimeField(auto_now=True)),
-                ('organization_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='technicians', to='organizations.organization')),
+                ('company_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='technicians', to='companys.company')),
                 ('user_id', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='technician_user_profile', to=settings.AUTH_USER_MODEL)),
             ],
             options={

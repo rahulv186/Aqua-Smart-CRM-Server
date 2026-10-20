@@ -8,64 +8,64 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('organizations', '0002_alter_organization_plan'),
+        ('companys', '0002_alter_company_plan'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='organization',
+            model_name='company',
             name='country',
             field=models.CharField(blank=True, max_length=100),
         ),
         migrations.AddField(
-            model_name='organizationownerprofile',
+            model_name='companyownerprofile',
             name='alternate_contact',
             field=models.CharField(blank=True, max_length=20),
         ),
         migrations.AddField(
-            model_name='organizationownerprofile',
+            model_name='companyownerprofile',
             name='city',
             field=models.CharField(blank=True, max_length=100),
         ),
         migrations.AddField(
-            model_name='organizationownerprofile',
+            model_name='companyownerprofile',
             name='country',
             field=models.CharField(blank=True, max_length=100),
         ),
         migrations.AddField(
-            model_name='organizationownerprofile',
+            model_name='companyownerprofile',
             name='employee_code',
             field=models.CharField(blank=True, max_length=50, null=True, unique=True),
         ),
         migrations.AddField(
-            model_name='organizationownerprofile',
+            model_name='companyownerprofile',
             name='modified_at',
             field=models.DateTimeField(auto_now=True),
         ),
         migrations.AddField(
-            model_name='organizationownerprofile',
+            model_name='companyownerprofile',
             name='name',
             field=models.CharField(blank=True, max_length=150, null=True),
         ),
         migrations.AddField(
-            model_name='organizationownerprofile',
+            model_name='companyownerprofile',
             name='postal_code',
             field=models.CharField(blank=True, max_length=20),
         ),
         migrations.AddField(
-            model_name='organizationownerprofile',
+            model_name='companyownerprofile',
             name='state',
             field=models.CharField(blank=True, max_length=100),
         ),
         migrations.AlterField(
-            model_name='organization',
+            model_name='company',
             name='plan',
             field=models.CharField(choices=[('standard', 'Standard'), ('premium', 'Premium'), ('basic', 'Basic')], default='basic', max_length=20),
         ),
         migrations.AlterField(
-            model_name='organizationownerprofile',
+            model_name='companyownerprofile',
             name='user_id',
-            field=models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='organization_owner_profile', to=settings.AUTH_USER_MODEL),
+            field=models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='company_owner_profile', to=settings.AUTH_USER_MODEL),
         ),
     ]

@@ -14,10 +14,10 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Organization',
+            name='Company',
             fields=[
                 ('id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
-                ('organization_name', models.CharField(max_length=150)),
+                ('company_name', models.CharField(max_length=150)),
                 ('slug', models.SlugField(max_length=150, unique=True)),
                 ('phone', models.CharField(blank=True, max_length=20, null=True)),
                 ('email', models.EmailField(blank=True, max_length=254, null=True)),
@@ -37,23 +37,23 @@ class Migration(migrations.Migration):
                 ('updated_at', models.DateTimeField(auto_now=True)),
             ],
             options={
-                'db_table': 'organizations',
+                'db_table': 'companys',
                 'ordering': ['created_at'],
                 'indexes': [models.Index(fields=['is_active'], name='organizatio_is_acti_bdc355_idx')],
             },
         ),
         migrations.CreateModel(
-            name='OrganizationOwnerProfile',
+            name='CompanyOwnerProfile',
             fields=[
                 ('id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
                 ('user_id', models.UUIDField(unique=True)),
                 ('address', models.TextField(blank=True, null=True)),
                 ('date_of_birth', models.DateField(blank=True, null=True)),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('organization', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='owner', to='organizations.organization')),
+                ('company', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='owner', to='companys.company')),
             ],
             options={
-                'db_table': 'organization_owners',
+                'db_table': 'company_owners',
                 'ordering': ['created_at'],
             },
         ),

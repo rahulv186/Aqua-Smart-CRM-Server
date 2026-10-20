@@ -7,7 +7,7 @@ from django.urls import reverse
 
 class invoice_file(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    organization_id = models.ForeignKey('organizations.Organization', on_delete=models.CASCADE, related_name='organization_invoice_files')
+    company_id = models.ForeignKey('companys.Company', on_delete=models.CASCADE, related_name='company_invoice_files')
     invoice_id = models.ForeignKey('invoice.invoice', on_delete=models.CASCADE, related_name='invoice_files')
     name = models.CharField(max_length=255)
     file = models.FileField(upload_to='invoices/')
@@ -31,7 +31,7 @@ class invoice_file(models.Model):
 
 class files(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    organization_id = models.ForeignKey('organizations.Organization', on_delete=models.CASCADE, related_name='organization_files')
+    company_id = models.ForeignKey('companys.Company', on_delete=models.CASCADE, related_name='company_files')
     name = models.CharField(max_length=255)
     file = models.FileField(upload_to='files/')
     category = models.CharField(max_length=100, blank=True, null=True)
