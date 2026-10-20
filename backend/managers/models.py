@@ -7,10 +7,10 @@ from django.urls import reverse
 class ManagerUserProfile(models.Model):
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    employee_code = models.CharField(max_length=50, unique=True)
+    employee_code = models.CharField(max_length=50, unique=True, blank=True, null=True)
     department = models.CharField(max_length=100, blank=True)
-    is_active = models.BooleanField(default=True)
-    name = models.CharField(max_length=255)
+    is_active = models.BooleanField(default=True, blank=True)
+    name = models.CharField(max_length=255, blank=True)
     organization_id = models.ForeignKey("organizations.Organization", on_delete=models.CASCADE, related_name="managers")
     addressLine1 = models.TextField(blank=True, max_length=255)
     addressLine2 = models.TextField(blank=True, max_length=255)
@@ -21,7 +21,6 @@ class ManagerUserProfile(models.Model):
 
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
     updated_at = models.DateTimeField(auto_now=True, editable=False)
-
 
     class Meta:
         db_table = "manager_user_profiles"

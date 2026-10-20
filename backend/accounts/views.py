@@ -12,3 +12,5 @@ def login(request):
         'username': user.username,
         'email': user.email
     })
+
+

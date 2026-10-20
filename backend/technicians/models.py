@@ -2,6 +2,7 @@ import uuid
 
 from django.db import models
 from django.urls import reverse
+from django.contrib.postgres.fields import ArrayField
 
 # Create your models here.
 class TechnicianUserProfile(models.Model):
@@ -21,13 +22,10 @@ class TechnicianUserProfile(models.Model):
     country = models.CharField(max_length=100, blank=True)
     postal_code = models.CharField(max_length=20, blank=True)
 
-
-
-    skills = models.ArrayField(models.CharField(max_length=100), blank=True, default=list)
+    skills = ArrayField(models.CharField(max_length=100), blank=True, default=list)
 
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
     updated_at = models.DateTimeField(auto_now=True, editable=False)
-
 
     class Meta:
         db_table = "technician_user_profiles"

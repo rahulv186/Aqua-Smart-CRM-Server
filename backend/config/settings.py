@@ -2,6 +2,7 @@
 import os
 from pathlib import Path
 
+from datetime import timedelta
 import dj_database_url
 from dotenv import load_dotenv
 
@@ -31,6 +32,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "rest_framework_simplejwt.token_blacklist",  # <--- Tracks refresh tokens & enables blacklisting
 
     "rest_framework",
     "drf_spectacular",
@@ -38,8 +40,13 @@ INSTALLED_APPS = [
     "accounts",
     "organizations",
     "customers",
+    "technicians",
+    "managers",
     "assets",
-    "service_jobs",
+    "amc",
+    "files",
+    "invoice",
+    "jobs",
 ]
 
 MIDDLEWARE = [
@@ -150,3 +157,31 @@ SPECTACULAR_SETTINGS = {
     "DESCRIPTION": "API for RO service business management.",
     "VERSION": "1.0.0",
 }
+
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=60),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
+    "ROTATE_REFRESH_TOKENS": True,
+    "BLACKLIST_AFTER_ROTATION": True,
+    "AUTH_HEADER_TYPES": ("Bearer",),
+}
+
+
+# Supabase Configuration Variables
+SUPABASE_URL = os.getenv("SUPABASE_URL", "")
+SUPABASE_KEY = os.getenv("SUPABASE_KEY", "")
+SUPABASE_MEDIA_BUCKET = os.getenv("SUPABASE_MEDIA_BUCKET", "media")
+
+# Replace your existing STORAGES block with this:
+STORAGES = {
+    "default": {
+        "BACKEND": "django_supabase_storage.SupabaseMediaStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+    },
+}
+
+# Media URL fallback for development
+MEDIA_URL = f"{SUPABASE_URL}/storage/v1/object/public/{SUPABASE_MEDIA_BUCKET}/"

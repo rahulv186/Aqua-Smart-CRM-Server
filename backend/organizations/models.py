@@ -92,9 +92,9 @@ class OrganizationOwnerProfile(models.Model):
     )
 
     user_id = models.OneToOneField("accounts.User", on_delete=models.CASCADE, related_name="organization_owner_profile")
-    employee_code = models.CharField(max_length=50, unique=True)
+    employee_code = models.CharField(max_length=50, unique=True, blank=True, null=True)
 
-    name = models.CharField(max_length=150)
+    name = models.CharField(max_length=150, blank=True, null=True)
     address = models.TextField(blank=True, null=True)
     date_of_birth = models.DateField(blank=True, null=True)
     city = models.CharField(max_length=100, blank=True)
