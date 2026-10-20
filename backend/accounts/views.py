@@ -23,8 +23,8 @@ def me(request):
 def register(request):
     serializer = RegisterSerializer(data = request.data)
     if(serializer.is_valid()):
+        user = serializer.save()
         refresh = RefreshToken.for_user(user)
-        user = serializer.save
         return Response(
             {
                 "message":"Created Successfully",
@@ -33,11 +33,11 @@ def register(request):
                     "full_name":user.full_name,
                     "email":user.email,
                     "phone":user.phone,
-                    "password hash":user.passwordhash
+                    "password":user.password
                 },
                 "tokens":{
-                    "refresh":refresh,
-                    "access":refresh.access_token
+                    "refresh_token":str(refresh),
+                    "access_token":str(refresh.access_token)
                 }
 
             },
