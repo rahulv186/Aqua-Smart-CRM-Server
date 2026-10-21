@@ -1,6 +1,8 @@
 from rest_framework import serializers
 
 from django.contrib.auth import get_user_model
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework import exceptions
 
 User = get_user_model()
 
@@ -23,3 +25,15 @@ class RegisterSerializer(serializers.ModelSerializer):
             password = validated_data['password']
         )
         return user
+
+
+class SuperUserTokenObtainPairSerializer(TokenObtainPairSerializer):
+    def validate(self, attrs):
+        # 1. Let SimpleJWT do its normal job (check username and password)
+        data = super().validate(attrs)
+        
+        # 2. 🔒 OUR CUSTOM RULE: Check if this user is a system superuser
+        if not self.user.is_superuser:
+            raise exceptions.PermissionDenied("Access denied. Only system superusers can log in here.")
+            
+        return data

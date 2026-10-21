@@ -14,7 +14,7 @@ class CustomerUserProfile(models.Model):
     
     user_id = models.ForeignKey("accounts.User", on_delete=models.CASCADE, related_name="customer_user_profile")
     company_id = models.ForeignKey("companys.Company", on_delete=models.CASCADE, related_name="customer_user_profile")
-    customer_code = models.CharField(max_length=50, unique=True)
+    customer_code = models.CharField(max_length=50, unique=True, default="")
 
     name = models.CharField(max_length=150, blank=True, null=True)
     addressLine1 = models.TextField(max_length=255, blank=True, null=True)
@@ -34,7 +34,7 @@ class CustomerUserProfile(models.Model):
     jobs = models.ForeignKey("jobs.Job_card", on_delete=models.SET_NULL, blank=True, null=True)
 #   complaints   Complaint[]
     amc_contract = models.ForeignKey("amc.amc_contract", on_delete=models.SET_NULL, blank=True, null=True)
-    invoices = models.ForeignKey("invoices.Invoice", on_delete=models.SET_NULL, blank=True, null=True)
+    # invoices = models.ForeignKey("invoice.invoice", on_delete=models.SET_NULL, blank=True, null=True, related_name="customer_invoices")
 #   payments     Payment[]
 #   files        FileObject[]
 
