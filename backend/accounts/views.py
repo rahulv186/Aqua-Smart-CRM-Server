@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from .serializers import RegisterSerializer
 from rest_framework import status
 from rest_framework_simplejwt.tokens import RefreshToken
+from ..companys.models import Company
 
 # Create your views here.
 @api_view(['GET'])
@@ -20,7 +21,12 @@ def me(request):
 
 @api_view(['POST'])
 @permission_classes([AllowAny])
-def register(request):
+def register(request, company_slug):
+    company = Company.objects.get(slug = company_slug)
+
+    if(not company):
+        return Response({"message":"Company Does Not Exist"}, status=status.HTTP_400_BAD_REQUEST)
+
     serializer = RegisterSerializer(data = request.data)
     if(serializer.is_valid()):
         user = serializer.save()
@@ -33,7 +39,8 @@ def register(request):
                     "full_name":user.full_name,
                     "email":user.email,
                     "phone":user.phone,
-                    "password":user.password
+                    "password":user.password,
+                    "company":company
                 },
                 "tokens":{
                     "refresh_token":str(refresh),

@@ -21,6 +21,8 @@ class Company(models.Model):
 
     slug = models.SlugField(max_length=150,unique=True)
 
+    short_name = models.CharField(max_length=4, blank=True, null=True)
+
     phone = models.CharField(max_length=20,blank=True,null=True)
 
     email = models.EmailField(blank=True,null=True)
