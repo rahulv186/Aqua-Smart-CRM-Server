@@ -28,11 +28,10 @@ from drf_spectacular.utils import extend_schema, inline_serializer
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def me(request, company_slug):
-    user = request.user
+
     return Response({
-        "email": user.email,
-        "username": user.username,
-        "role": "manager"
+        "email": request.user.email,
+        "username": request.user.username,
     })
 
 
@@ -81,5 +80,5 @@ def register(request, company_slug):
 
 @extend_schema(request=SuperUserTokenObtainPairSerializer)
 class SuperUserTokenObtainPairView(TokenObtainPairView):
-    permission_classes = [AllowAny]  # Anyone can try to hit this endpoint...
-    serializer_class = SuperUserTokenObtainPairSerializer # ...but they must pass our custom superuser rule above!
+    permission_classes = [AllowAny]
+    serializer_class = SuperUserTokenObtainPairSerializer

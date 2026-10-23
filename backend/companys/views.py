@@ -5,7 +5,9 @@ from rest_framework.response import Response
 from drf_spectacular.utils import extend_schema
 from .serializers import CreateNewCompanySerializer
 from accounts.permissions import IsSuperUser
+from accounts.models import User
 from rest_framework.status import HTTP_201_CREATED, HTTP_400_BAD_REQUEST
+from companys.models import Company
 
 # Create your views here.
 @extend_schema(request=CreateNewCompanySerializer)
@@ -21,14 +23,19 @@ def createCompany(request):
     if serializer.is_valid():
         company = serializer.save()
 
+        temp_password = getattr(serializer, "generated_password", None)
+
         return Response(
             {
                 "message":"Company Created Successfully",
                 "slug":company.slug,
-                "plan_active_till": company.plan_end_date
+                "plan_active_till": company.plan_end_date,
+                "company owner email": request.data.mail,
+                "temporary password":temp_password
             },
             status=HTTP_201_CREATED
 
         )
     else:
         return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
+
