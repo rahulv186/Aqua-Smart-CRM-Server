@@ -30,11 +30,10 @@ def createCompany(request):
                 "message":"Company Created Successfully",
                 "slug":company.slug,
                 "plan_active_till": company.plan_end_date,
-                "company owner email": request.data.mail,
+                "company owner email": company.email,
                 "temporary password":temp_password
             },
             status=HTTP_201_CREATED
-
         )
     else:
         return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)

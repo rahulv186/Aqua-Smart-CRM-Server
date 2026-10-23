@@ -37,3 +37,5 @@ class SuperUserTokenObtainPairSerializer(TokenObtainPairSerializer):
             raise exceptions.PermissionDenied("Access denied. Only system superusers can log in here.")
             
         return data
+
+    

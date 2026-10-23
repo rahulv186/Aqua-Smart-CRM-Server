@@ -1,8 +1,8 @@
 from django.contrib import admin
 from django.urls import path
-from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
+from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView # for swagger ui
 
-from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView # account login, register
 from accounts.views import SuperUserTokenObtainPairView
 from accounts import views as accounts_views
 from companys import views as company_views

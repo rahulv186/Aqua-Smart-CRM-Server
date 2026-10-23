@@ -36,38 +36,37 @@ class CreateNewCompanySerializer(serializers.ModelSerializer):
         return value
 
     def create(self, validated_data):
-        company = Company.objects.create(**validated_data)
         company_email = validated_data["email"]
         company_slug = validated_data["slug"]
 
+        # FIX 1: RAISE the ValidationError instead of returning it
         if User.objects.filter(email=company_email).exists():
-            return serializers.ValidationError(
-                {"email": "A User with this mail already exists}"}
+            raise serializers.ValidationError(
+                {"email": "A User with this email already exists."}
             )
 
         generatedPassword = get_random_string(length=12)
-
         owner_username = f"owner-{company_slug}"
 
         with transaction.atomic():
-
             company = Company.objects.create(**validated_data)
 
-            company_owner_user = User.objects.create(
-                email = validated_data["email"],
-                full_name = owner_username,
-                password = generatedPassword
+            # FIX 2: Use create_user() so Django securely hashes the password!
+            company_owner_user = User.objects.create_user(
+                email=company_email,
+                password=generatedPassword,
+                full_name=owner_username,  # Assuming full_name is on your User model
             )
 
             company_owner_profile = CompanyOwnerProfile.objects.create(
-                user = company_owner_user,
-                company = company,
-                employee_code = generate_unique_code(CompanyOwnerProfile, "employee_code", "EMP", 4)
+                user=company_owner_user,
+                company=company,
+                employee_code=generate_unique_code(
+                    CompanyOwnerProfile, "employee_code", "EMP", 4
+                ),
             )
 
             self.generated_password = generatedPassword
             self.email = company_email
-
-
 
         return company
