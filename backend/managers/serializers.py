@@ -58,11 +58,10 @@ class ManagerProfileOnboardSerializer(serializers.ModelSerializer):
             'name',
             'addressLine1',
             'addressLine2',
+            'department',
             'city',
             'state',
             'country',
-            'postal_code',
-            '',
-            '',
-            ''
+            'postal_code'
         )
+        
