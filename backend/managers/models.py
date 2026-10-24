@@ -7,17 +7,19 @@ from django.urls import reverse
 class ManagerUserProfile(models.Model):
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    user = models.ForeignKey("accounts.User", on_delete=models.CASCADE, related_name="manager_profile")
+    company = models.ForeignKey("companys.Company", on_delete=models.CASCADE, related_name="managers")
     employee_code = models.CharField(max_length=50, unique=True, blank=True, null=True)
     department = models.CharField(max_length=100, blank=True)
     is_active = models.BooleanField(default=True, blank=True)
     name = models.CharField(max_length=255, blank=True)
-    company_id = models.ForeignKey("companys.Company", on_delete=models.CASCADE, related_name="managers")
     addressLine1 = models.TextField(blank=True, max_length=255)
     addressLine2 = models.TextField(blank=True, max_length=255)
     city = models.CharField(max_length=100, blank=True)
     state = models.CharField(max_length=100, blank=True)
     country = models.CharField(max_length=100, blank=True)
     postal_code = models.CharField(max_length=20, blank=True)
+    emergency_contact = models.CharField(max_length=20, blank=True)
 
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
     updated_at = models.DateTimeField(auto_now=True, editable=False)

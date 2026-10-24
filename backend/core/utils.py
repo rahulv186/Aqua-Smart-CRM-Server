@@ -27,7 +27,7 @@ class IsSuperUser(BasePermission):
         # Checks if user is logged in AND is a superuser
         return bool(request.user and request.user.is_authenticated and request.user.is_superuser)
 
-class IsOwnerOfTenant(BasePermission):
+class IsOwnerOfCompany(BasePermission):
     """
     Ensures the user is an owner AND belongs to the specific company in the URL slug.
     """
