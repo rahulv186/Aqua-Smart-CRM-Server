@@ -70,3 +70,19 @@ class CreateNewCompanySerializer(serializers.ModelSerializer):
             self.email = company_email
 
         return company
+
+
+class CreateCompanyOwnerProfile(serializers.ModelSerializer):
+    class Meta:
+        model = CompanyOwnerProfile
+        fields = (
+            'name',
+            'address',
+            'date_of_birth',
+            'city',
+            'state',
+            'country',
+            'postal_code',
+            'alternate_contact'
+        )
+        read_only_fields = ('user', 'employee_code', 'company')

@@ -6,8 +6,8 @@ from drf_spectacular.utils import extend_schema
 from .serializers import CreateNewCompanySerializer
 from accounts.permissions import IsSuperUser
 from accounts.models import User
-from rest_framework.status import HTTP_201_CREATED, HTTP_400_BAD_REQUEST
-from companys.models import Company
+from rest_framework.status import HTTP_201_CREATED, HTTP_400_BAD_REQUEST, HTTP_404_NOT_FOUND, HTTP_200_OK
+from companys.models import Company, CompanyOwnerProfile
 
 # Create your views here.
 @extend_schema(request=CreateNewCompanySerializer)
@@ -38,3 +38,31 @@ def createCompany(request):
     else:
         return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
 
+
+@api_view(['PUT', 'POST'])
+@permission_classes([IsAuthenticated])
+def edit_owner_profile(request):
+    try:
+        OwnerProfile = request.user.company_owner_profile
+    except CompanyOwnerProfile.DoesNotExist:
+        return Response({"detail": "Company owner proifle not found fot this disguise"}, status=HTTP_404_NOT_FOUND)
+
+
+    serializer = CompanyOwnerProfile(
+        OwnerProfile, 
+        data=request.data,
+        partial = True
+    )
+
+    if serializer.is_valid():
+        serializer.save()
+        return Response({
+            "message":"Details Edited / Added",
+            "data":serializer.data
+        },
+            status=HTTP_200_OK
+        )
+    else:
+        return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
+
+     

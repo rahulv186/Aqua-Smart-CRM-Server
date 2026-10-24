@@ -3,6 +3,7 @@ from rest_framework import serializers
 from django.contrib.auth import get_user_model
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework import exceptions
+from django.contrib.auth.models import update_last_login
 
 User = get_user_model()
 
@@ -38,4 +39,11 @@ class SuperUserTokenObtainPairSerializer(TokenObtainPairSerializer):
             
         return data
 
-    
+class TenantEmailTokenObtainPairSerializer(TokenObtainPairSerializer):
+    def validate(self, attrs):
+        data = super().validate(attrs)
+        
+        # Updates the last_login timestamp automatically!
+        update_last_login(None, self.user)
+        
+        return data
