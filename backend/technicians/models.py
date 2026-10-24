@@ -1,5 +1,4 @@
 import uuid
-
 from django.db import models
 from django.urls import reverse
 from django.contrib.postgres.fields import ArrayField
@@ -8,13 +7,13 @@ from django.contrib.postgres.fields import ArrayField
 class TechnicianUserProfile(models.Model):
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    user_id = models.OneToOneField("accounts.User", on_delete=models.CASCADE, related_name="technician_user_profile")
-    company_id = models.ForeignKey("companys.Company", on_delete=models.CASCADE, related_name="technicians")
+    user = models.OneToOneField("accounts.User", on_delete=models.CASCADE, related_name="technician_user_profile")
+    company = models.ForeignKey("companys.Company", on_delete=models.CASCADE, related_name="technicians")
     employee_code = models.CharField(max_length=50, unique=True)
     department = models.CharField(max_length=100, blank=True)
     is_active = models.BooleanField(default=True)
     name = models.CharField(max_length=255)
-    emergency_contact = models.CharField(max_length=20, blank=True)
+    emergency_contact = models.CharField(max_length=20, blank=True, min_length=10)
     addressLine1 = models.TextField(blank=True, max_length=255)
     addressLine2 = models.TextField(blank=True, max_length=255)
     city = models.CharField(max_length=100, blank=True)

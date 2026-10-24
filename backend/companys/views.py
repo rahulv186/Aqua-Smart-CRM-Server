@@ -82,6 +82,8 @@ def edit_owner_profile(request, company_slug):
     else:
         return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
 
+
+
 @extend_schema(
     request=SendInviteSerializer,
     responses={201: {"description": "Invitation sent successfully."}}
