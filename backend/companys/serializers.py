@@ -86,3 +86,8 @@ class CreateCompanyOwnerProfile(serializers.ModelSerializer):
             'alternate_contact'
         )
         read_only_fields = ('user', 'employee_code', 'company')
+
+
+
+class SendInviteSerializer(serializers.Serializer):
+    email = serializers.EmailField()

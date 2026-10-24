@@ -1,7 +1,6 @@
 from django.contrib import admin
 from django.urls import path
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView # for swagger ui
-
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView # account login, register
 from accounts.views import SuperUserTokenObtainPairView
 from accounts.serializers import TenantEmailTokenObtainPairSerializer
@@ -30,7 +29,7 @@ urlpatterns = [
     path('api/<slug:company_slug>/managers/send-invite/', company_views.send_manager_invite, name='send_manager_invite'),
     path('api/<slug:company_slug>/managers/verify-invite/', manager_views.verify_invite_link, name='verify_manager_invite'),
     path('api/<slug:company_slug>/managers/accept-manager-invite/', manager_views.accept_manager_invite, name='accept_manager_invite'),
-    path('api/<slug:company_slug>/managers/manager_onboarding/', manager_views.update_manager_profile, name='update_manager_profile'),
+    path('api/<slug:company_slug>/managers/manager_onboarding/', manager_views.manager_onboarding, name='update_manager_profile'),
 
 
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),

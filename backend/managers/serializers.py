@@ -8,7 +8,7 @@ from invitation.models import Invitation
 User = get_user_model()
 
 
-class AcceptManagerInviteSerializer(serializers.ModelSerializer):
+class AcceptManagerInviteSerializer(serializers.Serializer):
     token = serializers.UUIDField()
     password = serializers.CharField(write_only = True, min_length = 8)
     phone = serializers.CharField()
@@ -38,7 +38,7 @@ class AcceptManagerInviteSerializer(serializers.ModelSerializer):
         )
 
         # Create Manager Profile
-        manager_profile = ManagerUserProfile(
+        manager_profile = ManagerUserProfile.objects.create(
             user = user,
             company = invitation.company,
             employee_code = generate_unique_code(ManagerUserProfile, "employee_code", "EMP", 4),
@@ -64,4 +64,3 @@ class ManagerProfileOnboardSerializer(serializers.ModelSerializer):
             'country',
             'postal_code'
         )
-        

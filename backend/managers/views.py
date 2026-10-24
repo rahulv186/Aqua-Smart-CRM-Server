@@ -89,9 +89,9 @@ def accept_manager_invite(request, company_slug):
 @permission_classes([IsAuthenticated, IsManager])
 def manager_onboarding(request, company_slug):
     try:
-        profile = request.user.manager_profile
+        profile = request.user.manager_profile.first()
         company = Company.objects.get(slug=company_slug)
-        if not request.user.manager_profile.company == company or not profile:
+        if (not profile.company == company) or (not profile):
             return Response(
                 {"error": "Permission Denied"}, status=HTTP_401_UNAUTHORIZED
             )
@@ -112,7 +112,7 @@ def manager_onboarding(request, company_slug):
         updated_profile.save(update_fields=["is_boarded"])
 
         return Response(
-            {"message": "Onboarding Successfull", "data": updated_profile.data},
+            {"message": "Onboarding Successfull", "data": serializer.data},
             status=HTTP_200_OK,
         )
     else:
