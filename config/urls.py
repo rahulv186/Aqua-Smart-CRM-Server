@@ -38,7 +38,6 @@ urlpatterns = [
     path('api/<slug:company_slug>/hr/create-hr', hr_views.create_hr, name="create-hr"),
 
 
-
     # Technician Creating / Onboarding
     path('api/<slug:company_slug>/technician/create-technician', technician_views.create_technician, name="create-technician"),
 
