@@ -20,7 +20,8 @@ from drf_spectacular.utils import extend_schema
 from invitation.models import Invitation
 
 # Create your views here.
-
+@api_view(['GET'])
+@permission_classes([AllowAny])
 def verify_invite_link(request):
 
     token = request.query_params.get("token")

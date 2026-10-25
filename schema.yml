@@ -1,0 +1,930 @@
+openapi: 3.0.3
+info:
+  title: AquaSmart AI API
+  version: 1.0.0
+  description: API for RO service business management.
+paths:
+  /api/{company_slug}/hr/create-hr:
+    post:
+      operationId: hr_create_hr_create
+      parameters:
+      - in: path
+        name: company_slug
+        schema:
+          type: string
+        required: true
+      tags:
+      - hr
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateHRProfile'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CreateHRProfile'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CreateHRProfile'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                description: Invitation sent successfully.
+          description: ''
+  /api/{company_slug}/login:
+    post:
+      operationId: login_create
+      description: |-
+        Takes a set of user credentials and returns an access and refresh JSON web
+        token pair to prove the authentication of those credentials.
+      parameters:
+      - in: path
+        name: company_slug
+        schema:
+          type: string
+        required: true
+      tags:
+      - login
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TenantEmailTokenObtainPair'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TenantEmailTokenObtainPair'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TenantEmailTokenObtainPair'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TenantEmailTokenObtainPair'
+          description: ''
+  /api/{company_slug}/managers/accept-manager-invite/:
+    post:
+      operationId: managers_accept_manager_invite_create
+      parameters:
+      - in: path
+        name: company_slug
+        schema:
+          type: string
+        required: true
+      tags:
+      - managers
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AcceptManagerInvite'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AcceptManagerInvite'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AcceptManagerInvite'
+        required: true
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/{company_slug}/managers/manager-onboarding/:
+    put:
+      operationId: managers_manager_onboarding_update
+      parameters:
+      - in: path
+        name: company_slug
+        schema:
+          type: string
+        required: true
+      tags:
+      - managers
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ManagerProfileOnboard'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ManagerProfileOnboard'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ManagerProfileOnboard'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          description: No response body
+    patch:
+      operationId: managers_manager_onboarding_partial_update
+      parameters:
+      - in: path
+        name: company_slug
+        schema:
+          type: string
+        required: true
+      tags:
+      - managers
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedManagerProfileOnboard'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedManagerProfileOnboard'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedManagerProfileOnboard'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/{company_slug}/managers/send-invite/:
+    post:
+      operationId: managers_send_invite_create
+      parameters:
+      - in: path
+        name: company_slug
+        schema:
+          type: string
+        required: true
+      tags:
+      - managers
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SendInvite'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SendInvite'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SendInvite'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                description: Invitation sent successfully.
+          description: ''
+  /api/{company_slug}/managers/verify-invite/:
+    get:
+      operationId: managers_verify_invite_retrieve
+      parameters:
+      - in: path
+        name: company_slug
+        schema:
+          type: string
+        required: true
+      tags:
+      - managers
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/{company_slug}/me:
+    get:
+      operationId: me_retrieve
+      parameters:
+      - in: path
+        name: company_slug
+        schema:
+          type: string
+        required: true
+      tags:
+      - me
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserMeResponse'
+          description: ''
+  /api/{company_slug}/owner-onboarding:
+    post:
+      operationId: owner_onboarding_create
+      parameters:
+      - in: path
+        name: company_slug
+        schema:
+          type: string
+        required: true
+      tags:
+      - owner-onboarding
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCompanyOwnerProfile'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CreateCompanyOwnerProfile'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CreateCompanyOwnerProfile'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          description: No response body
+    put:
+      operationId: owner_onboarding_update
+      parameters:
+      - in: path
+        name: company_slug
+        schema:
+          type: string
+        required: true
+      tags:
+      - owner-onboarding
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCompanyOwnerProfile'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CreateCompanyOwnerProfile'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CreateCompanyOwnerProfile'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/{company_slug}/register:
+    post:
+      operationId: register_create
+      parameters:
+      - in: path
+        name: company_slug
+        schema:
+          type: string
+        required: true
+      tags:
+      - register
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Register'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Register'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Register'
+        required: true
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/{company_slug}/technician/create-technician:
+    post:
+      operationId: technician_create_technician_create
+      parameters:
+      - in: path
+        name: company_slug
+        schema:
+          type: string
+        required: true
+      tags:
+      - technician
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTechnicianProfile'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CreateTechnicianProfile'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CreateTechnicianProfile'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                description: Invitation sent successfully.
+          description: ''
+  /api/{company_slug}/token/refresh:
+    post:
+      operationId: token_refresh_create
+      description: |-
+        Takes a refresh type JSON web token and returns an access type JSON web
+        token if the refresh token is valid.
+      parameters:
+      - in: path
+        name: company_slug
+        schema:
+          type: string
+        required: true
+      tags:
+      - token
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenRefresh'
+          description: ''
+  /api/admin/login/:
+    post:
+      operationId: admin_login_create
+      description: |-
+        Takes a set of user credentials and returns an access and refresh JSON web
+        token pair to prove the authentication of those credentials.
+      tags:
+      - admin
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SuperUserTokenObtainPair'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SuperUserTokenObtainPair'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SuperUserTokenObtainPair'
+        required: true
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuperUserTokenObtainPair'
+          description: ''
+  /api/schema/:
+    get:
+      operationId: schema_retrieve
+      description: |-
+        OpenApi3 schema for this API. Format can be selected via content negotiation.
+
+        - YAML: application/vnd.oai.openapi
+        - JSON: application/vnd.oai.openapi+json
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - json
+          - yaml
+      - in: query
+        name: lang
+        schema:
+          type: string
+          enum:
+          - af
+          - ar
+          - ar-dz
+          - ast
+          - az
+          - be
+          - bg
+          - bn
+          - br
+          - bs
+          - ca
+          - ckb
+          - cs
+          - cy
+          - da
+          - de
+          - dsb
+          - el
+          - en
+          - en-au
+          - en-gb
+          - eo
+          - es
+          - es-ar
+          - es-co
+          - es-mx
+          - es-ni
+          - es-ve
+          - et
+          - eu
+          - fa
+          - fi
+          - fr
+          - fy
+          - ga
+          - gd
+          - gl
+          - he
+          - hi
+          - hr
+          - hsb
+          - hu
+          - hy
+          - ia
+          - id
+          - ig
+          - io
+          - is
+          - it
+          - ja
+          - ka
+          - kab
+          - kk
+          - km
+          - kn
+          - ko
+          - ky
+          - lb
+          - lt
+          - lv
+          - mk
+          - ml
+          - mn
+          - mr
+          - ms
+          - my
+          - nb
+          - ne
+          - nl
+          - nn
+          - os
+          - pa
+          - pl
+          - pt
+          - pt-br
+          - ro
+          - ru
+          - sk
+          - sl
+          - sq
+          - sr
+          - sr-latn
+          - sv
+          - sw
+          - ta
+          - te
+          - tg
+          - th
+          - tk
+          - tr
+          - tt
+          - udm
+          - ug
+          - uk
+          - ur
+          - uz
+          - vi
+          - zh-hans
+          - zh-hant
+      tags:
+      - schema
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/vnd.oai.openapi:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/yaml:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/vnd.oai.openapi+json:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/secret/create-company:
+    post:
+      operationId: secret_create_company_create
+      tags:
+      - secret
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateNewCompany'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CreateNewCompany'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CreateNewCompany'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          description: No response body
+components:
+  schemas:
+    AcceptManagerInvite:
+      type: object
+      properties:
+        token:
+          type: string
+          format: uuid
+        password:
+          type: string
+          writeOnly: true
+          minLength: 8
+        phone:
+          type: string
+      required:
+      - password
+      - phone
+      - token
+    CreateCompanyOwnerProfile:
+      type: object
+      properties:
+        name:
+          type: string
+          nullable: true
+          maxLength: 150
+        address:
+          type: string
+          nullable: true
+        date_of_birth:
+          type: string
+          format: date
+          nullable: true
+        city:
+          type: string
+          maxLength: 100
+        state:
+          type: string
+          maxLength: 100
+        country:
+          type: string
+          maxLength: 100
+        postal_code:
+          type: string
+          maxLength: 20
+        alternate_contact:
+          type: string
+          maxLength: 20
+    CreateHRProfile:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+        phone:
+          type: string
+        name:
+          type: string
+          maxLength: 255
+        department:
+          type: string
+          maxLength: 100
+        emergency_contact:
+          type: string
+          maxLength: 20
+        addressLine1:
+          type: string
+          maxLength: 255
+        addressLine2:
+          type: string
+          maxLength: 255
+        city:
+          type: string
+          maxLength: 100
+        state:
+          type: string
+          maxLength: 100
+        country:
+          type: string
+          maxLength: 100
+        postal_code:
+          type: string
+          maxLength: 20
+      required:
+      - email
+      - name
+      - phone
+    CreateNewCompany:
+      type: object
+      properties:
+        company_name:
+          type: string
+          maxLength: 150
+        slug:
+          type: string
+          maxLength: 150
+          pattern: ^[-a-zA-Z0-9_]+$
+        short_name:
+          type: string
+          nullable: true
+          maxLength: 4
+        phone:
+          type: string
+          nullable: true
+          maxLength: 20
+        email:
+          nullable: true
+          oneOf:
+          - type: string
+            format: email
+            maxLength: 254
+          - type: string
+            maxLength: 0
+        gstin:
+          type: string
+          nullable: true
+          maxLength: 20
+        address:
+          type: string
+          nullable: true
+        city:
+          type: string
+          nullable: true
+          maxLength: 100
+        state:
+          type: string
+          nullable: true
+          maxLength: 100
+        country:
+          type: string
+          maxLength: 100
+        postal_code:
+          type: string
+          nullable: true
+          maxLength: 20
+        timezone:
+          type: string
+          maxLength: 50
+        currency:
+          type: string
+          maxLength: 3
+        plan:
+          $ref: '#/components/schemas/PlanEnum'
+        plan_start_date:
+          type: string
+          format: date
+          nullable: true
+        plan_end_date:
+          type: string
+          format: date
+          nullable: true
+        payment_status:
+          $ref: '#/components/schemas/PaymentStatusEnum'
+        is_active:
+          type: boolean
+      required:
+      - company_name
+      - slug
+    CreateTechnicianProfile:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+        phone:
+          type: string
+        name:
+          type: string
+          maxLength: 255
+        department:
+          type: string
+          maxLength: 100
+        emergency_contact:
+          type: string
+          maxLength: 20
+        addressLine1:
+          type: string
+          maxLength: 255
+        addressLine2:
+          type: string
+          maxLength: 255
+        city:
+          type: string
+          maxLength: 100
+        state:
+          type: string
+          maxLength: 100
+        country:
+          type: string
+          maxLength: 100
+        postal_code:
+          type: string
+          maxLength: 20
+        skills:
+          type: array
+          items:
+            type: string
+            maxLength: 100
+      required:
+      - email
+      - name
+      - phone
+    ManagerProfileOnboard:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 255
+        addressLine1:
+          type: string
+          maxLength: 255
+        addressLine2:
+          type: string
+          maxLength: 255
+        department:
+          type: string
+          maxLength: 100
+        city:
+          type: string
+          maxLength: 100
+        state:
+          type: string
+          maxLength: 100
+        country:
+          type: string
+          maxLength: 100
+        postal_code:
+          type: string
+          maxLength: 20
+    PatchedManagerProfileOnboard:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 255
+        addressLine1:
+          type: string
+          maxLength: 255
+        addressLine2:
+          type: string
+          maxLength: 255
+        department:
+          type: string
+          maxLength: 100
+        city:
+          type: string
+          maxLength: 100
+        state:
+          type: string
+          maxLength: 100
+        country:
+          type: string
+          maxLength: 100
+        postal_code:
+          type: string
+          maxLength: 20
+    PaymentStatusEnum:
+      enum:
+      - pending
+      - completed
+      - failed
+      - overdue
+      type: string
+      description: |-
+        * `pending` - Pending
+        * `completed` - Completed
+        * `failed` - Failed
+        * `overdue` - Overdue
+    PlanEnum:
+      enum:
+      - basic
+      - standard
+      - premium
+      type: string
+      description: |-
+        * `basic` - Basic
+        * `standard` - Standard
+        * `premium` - Premium
+    Register:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        email:
+          type: string
+          format: email
+          maxLength: 254
+        full_name:
+          type: string
+          nullable: true
+          maxLength: 150
+        phone:
+          type: string
+          nullable: true
+          maxLength: 20
+        password:
+          type: string
+          writeOnly: true
+      required:
+      - email
+      - id
+      - password
+    SendInvite:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+      required:
+      - email
+    SuperUserTokenObtainPair:
+      type: object
+      properties:
+        email:
+          type: string
+          writeOnly: true
+        password:
+          type: string
+          writeOnly: true
+      required:
+      - email
+      - password
+    TenantEmailTokenObtainPair:
+      type: object
+      properties:
+        email:
+          type: string
+          writeOnly: true
+        password:
+          type: string
+          writeOnly: true
+      required:
+      - email
+      - password
+    TokenRefresh:
+      type: object
+      properties:
+        access:
+          type: string
+          readOnly: true
+        refresh:
+          type: string
+      required:
+      - access
+      - refresh
+    UserMeResponse:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+        username:
+          type: string
+        role:
+          type: string
+      required:
+      - email
+      - role
+      - username
+  securitySchemes:
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

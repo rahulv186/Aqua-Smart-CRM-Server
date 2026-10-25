@@ -100,6 +100,18 @@ To stop the running services, press `Ctrl+C`. To stop and remove the containers 
 ```bash
 docker compose down
 ```
+## 📚 API Specification & Documentation
+
+This project's complete API contract is automatically generated using `drf-spectacular` and is available in the root directory as [`schema.yml`](./schema.yml).
+
+### How to Use the API Spec:
+* **Import into Postman:** You can import the `schema.yml` file directly into Postman to instantly create a collection of all available backend endpoints, request bodies, and parameters.
+* **Interactive Viewer:** Paste the contents of `schema.yml` into [Swagger Editor](https://editor.swagger.io/) to view the documentation visually.
+* **Regenerating the Schema:** If you modify your serializers, views, or endpoints, update the specification file by running:
+  ```bash
+  python manage.py spectacular --file schema.yml
+
+
 
 ## Database Migrations
 
