@@ -47,7 +47,8 @@ INSTALLED_APPS = [
     "files",
     "invoice",
     "jobs",
-    "invitation"
+    "invitation",
+    "hr",
 ]
 
 MIDDLEWARE = [

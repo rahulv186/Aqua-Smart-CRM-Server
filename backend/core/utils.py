@@ -76,3 +76,15 @@ class IsOwnerOrManager(BasePermission):
                 or hasattr(request.user, "company_owner_profile")
             )
         )
+
+class IsOwnerOrManagerOrHR(BasePermission):
+    def has_permission(self, request, view):
+        return bool(
+            (request.user)
+            and (request.user.is_authenticated)
+            and (
+                (hasattr(request.user, "manager_profile"))
+                or hasattr(request.user, "company_owner_profile")
+                or hasattr(request.user, "hr_profile")
+            )
+        )

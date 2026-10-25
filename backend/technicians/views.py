@@ -3,7 +3,7 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from drf_spectacular.utils import extend_schema
 from technicians.serializers import CreateTechnicianProfile
-from core.utils import IsOwnerOrManager
+from core.utils import IsOwnerOrManagerOrHR
 from rest_framework.status import (
     HTTP_201_CREATED,
     HTTP_400_BAD_REQUEST,
@@ -15,7 +15,6 @@ from companys.models import Company
 from django.contrib.auth import get_user_model
 
 User = get_user_model()
-from invitation.models import Invitation
 
 
 @extend_schema(
@@ -23,7 +22,7 @@ from invitation.models import Invitation
     responses={201: {"description": "Invitation sent successfully."}}
 )
 @api_view(["POST"])
-@permission_classes([IsAuthenticated, IsOwnerOrManager])
+@permission_classes([IsAuthenticated, IsOwnerOrManagerOrHR])
 def create_technician(request, company_slug):
     try:
         company = Company.objects.get(slug=company_slug)

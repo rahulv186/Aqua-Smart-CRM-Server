@@ -8,6 +8,7 @@ from accounts import views as accounts_views
 from companys import views as company_views
 from managers import views as manager_views
 from technicians import views as technician_views
+from hr import views as hr_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -31,6 +32,11 @@ urlpatterns = [
     path('api/<slug:company_slug>/managers/verify-invite/', manager_views.verify_invite_link, name='verify_manager_invite'),
     path('api/<slug:company_slug>/managers/accept-manager-invite/', manager_views.accept_manager_invite, name='accept_manager_invite'),
     path('api/<slug:company_slug>/managers/manager-onboarding/', manager_views.manager_onboarding, name='update_manager_profile'),
+
+
+    # HR Onboarding
+    path('api/<slug:company_slug>/hr/create-hr', hr_views.create_hr, name="create-hr"),
+
 
 
     # Technician Creating / Onboarding
