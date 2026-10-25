@@ -32,7 +32,7 @@ class CreateHRProfile(serializers.Serializer):
         company = validated_data.pop('company')
 
         auto_gen_password = get_random_string(length=8)
-        employee_code = generate_unique_code(HRUserProfile, "employee_code", "TEC", 4)
+        employee_code = generate_unique_code(HRUserProfile, "employee_code", "HR", 4)
 
         user = User.objects.create_user(
             email=validated_data['email'],

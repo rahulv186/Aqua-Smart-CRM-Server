@@ -35,17 +35,17 @@ def create_hr(request, company_slug):
     serializer = CreateHRProfile(data=request.data)
 
     if serializer.is_valid():
-        user, password, technician_profile = serializer.save(company=company)
+        user, password, HR_profile = serializer.save(company=company)
         return Response({
-            "message":"Technician User and Profile are Generated and Filled",
+            "message":"HR User and Profile are Generated and Filled",
             "user":{
                 "email":user.email,
                 "password":password
             },
             "profile":{
-                "name":technician_profile.name,
-                "employee_code":technician_profile.employee_code,
-                "is_active":technician_profile.is_active
+                "name":HR_profile.name,
+                "employee_code":HR_profile.employee_code,
+                "is_active":HR_profile.is_active
             }
         },
         status=HTTP_201_CREATED)
