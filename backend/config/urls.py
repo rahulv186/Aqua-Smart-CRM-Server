@@ -7,6 +7,7 @@ from accounts.serializers import TenantEmailTokenObtainPairSerializer
 from accounts import views as accounts_views
 from companys import views as company_views
 from managers import views as manager_views
+from technicians import views as technician_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -29,7 +30,11 @@ urlpatterns = [
     path('api/<slug:company_slug>/managers/send-invite/', company_views.send_manager_invite, name='send_manager_invite'),
     path('api/<slug:company_slug>/managers/verify-invite/', manager_views.verify_invite_link, name='verify_manager_invite'),
     path('api/<slug:company_slug>/managers/accept-manager-invite/', manager_views.accept_manager_invite, name='accept_manager_invite'),
-    path('api/<slug:company_slug>/managers/manager_onboarding/', manager_views.manager_onboarding, name='update_manager_profile'),
+    path('api/<slug:company_slug>/managers/manager-onboarding/', manager_views.manager_onboarding, name='update_manager_profile'),
+
+
+    # Technician Creating / Onboarding
+    path('api/<slug:company_slug>/technician/create-technician', technician_views.create_technician, name="create-technician"),
 
 
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),

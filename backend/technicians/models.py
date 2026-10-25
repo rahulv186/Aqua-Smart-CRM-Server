@@ -13,7 +13,7 @@ class TechnicianUserProfile(models.Model):
     department = models.CharField(max_length=100, blank=True)
     is_active = models.BooleanField(default=True)
     name = models.CharField(max_length=255)
-    emergency_contact = models.CharField(max_length=20, blank=True, min_length=10)
+    emergency_contact = models.CharField(max_length=20, blank=True)
     addressLine1 = models.TextField(blank=True, max_length=255)
     addressLine2 = models.TextField(blank=True, max_length=255)
     city = models.CharField(max_length=100, blank=True)

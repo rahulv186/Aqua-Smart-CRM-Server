@@ -2,8 +2,8 @@ from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from drf_spectacular.utils import extend_schema
-from companys.serializers import SendInviteSerializer
-from core.utils import IsOwnerOfCompany, IsManager
+from technicians.serializers import CreateTechnicianProfile
+from core.utils import IsOwnerOrManager
 from rest_framework.status import (
     HTTP_201_CREATED,
     HTTP_400_BAD_REQUEST,
@@ -19,40 +19,37 @@ from invitation.models import Invitation
 
 
 @extend_schema(
-    request=SendInviteSerializer,
+    request=CreateTechnicianProfile,
     responses={201: {"description": "Invitation sent successfully."}}
 )
 @api_view(["POST"])
-@permission_classes([IsAuthenticated, IsOwnerOfCompany, IsManager])
-def send_technician_invite(request, company_slug):
-
+@permission_classes([IsAuthenticated, IsOwnerOrManager])
+def create_technician(request, company_slug):
     try:
         company = Company.objects.get(slug=company_slug)
 
-        if not company:
-            return Response({"message": "Permission Denied"}, status=HTTP_403_FORBIDDEN)
     except Company.DoesNotExist:
         return Response(
-            {"message": "Company Does Not Exist"}, status=HTTP_400_BAD_REQUEST
+            {"error": "Company not found."}, 
+            status=HTTP_404_NOT_FOUND
         )
+    serializer = CreateTechnicianProfile(data=request.data)
 
-    email = request.data.get("email")
-    if not email:
-        return Response({"error": "Email is Required"}, status=HTTP_400_BAD_REQUEST)
+    if serializer.is_valid():
+        user, password, technician_profile = serializer.save(company=company)
+        return Response({
+            "message":"Technician User and Profile are Generated and Filled",
+            "user":{
+                "email":user.email,
+                "password":password
+            },
+            "profile":{
+                "name":technician_profile.name,
+                "employee_code":technician_profile.employee_code,
+                "is_active":technician_profile.is_active
+            }
+        },
+        status=HTTP_201_CREATED)
+    else:
+        return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
 
-    if User.objects.filter(email=email).exists():
-        return Response(
-            {"error": "User already Exists with same Email"},
-            status=HTTP_400_BAD_REQUEST,
-        )
-
-    invitation = Invitation.objects.create(email=email, company=company, role="technician")
-
-    invitation_link = f"http://app.aquasmart.ai/accept-invite?token={invitation.token}"
-
-    # Email Service Link here
-    
-    return Response(
-        {"message": "Invite link created", "link": invitation_link},
-        status=HTTP_201_CREATED,
-    )
