@@ -3,17 +3,14 @@
 A Django REST API backend for Aqua Company CRM. The system supports technician profile creation, department and job assignments, IOT and integration with a PostgreSQL database hosted on Supabase. It uses Docker for containerized development and deployment.
 
 ## Tech Stack
-
-- **Backend:** Django, Django REST Framework
-- **Database:** PostgreSQL
-- **Database Hosting:** Supabase
-- **Containerization:** Docker, Docker Compose
-- **Database Configuration:** `dj-database-url`, Psycopg 3
-- **Python Version:** 3.12+
+<p align="left">
+  <a href="">
+    <img src="https://skillicons.dev/icons?i=py,django,supabase,postgresql,docker,github" /></a></p>
 
 ## Features
 
-- **Technician Onboarding:** API endpoints for creating technician profiles and assigning departments and skills.
+- **Staff Onboarding:** API endpoints for creating staff profiles and assigning departments and work.
+- **Multi Tenant:** Built for Multi Tenant use, Uses high level security techniques to maintain discipline across company
 - **Database Integrity:** Atomic database transactions to maintain consistency across related database operations.
 - **Company Association:** Supports associating technician profiles with the relevant company.
 - **Supabase Integration:** Connects to a hosted PostgreSQL database using a configurable database connection URL.
@@ -100,19 +97,18 @@ To stop the running services, press `Ctrl+C`. To stop and remove the containers 
 ```bash
 docker compose down
 ```
-## 📚 API Specification & Documentation
+### 4. API Specification & Documentation
 
 This project's complete API contract is automatically generated using `drf-spectacular` and is available in the root directory as [`schema.yml`](./schema.yml).
 
-### How to Use the API Spec:
+#### How to Use the API Spec:
 * **Import into Postman:** You can import the `schema.yml` file directly into Postman to instantly create a collection of all available backend endpoints, request bodies, and parameters.
 * **Interactive Viewer:** Paste the contents of `schema.yml` into [Swagger Editor](https://editor.swagger.io/) to view the documentation visually.
 * **Regenerating the Schema:** If you modify your serializers, views, or endpoints, update the specification file by running:
   ```bash
   python manage.py spectacular --file schema.yml
-
-
-
+  ```
+  
 ## Database Migrations
 
 Django migrations manage changes to the database schema.
@@ -179,5 +175,5 @@ docker compose exec web python manage.py help
 - Configure Django's `ALLOWED_HOSTS` and other production security settings appropriately.
 - Use secure database connections and restrict database access to trusted services.
 - Apply migrations carefully when working with a shared or production database.
-- Do not expose Django's development server directly to the public internet in production.
-
+- Do not expose Django's development server directly to the public internet in production
+- Always ensure all the endpoints are wrapped in company slug.
