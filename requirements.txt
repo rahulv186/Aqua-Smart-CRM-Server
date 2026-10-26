@@ -8,6 +8,9 @@ cryptography==50.0.2
 deprecation==2.1.0
 dj-database-url==3.1.2
 Django==5.2.18
+django-filter==26.2
+django-fsm==3.0.1
+django-phonenumber-field==9.0.0
 django-supabase-storage==1.1.2
 djangorestframework==3.18.3
 djangorestframework_simplejwt==5.5.1
@@ -24,6 +27,7 @@ jsonschema==4.26.0
 jsonschema-specifications==2025.9.1
 multidict==7.1.0
 packaging==26.3
+phonenumbers==9.0.41
 postgrest==2.33.0
 propcache==0.5.4
 psycopg==3.3.6

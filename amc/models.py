@@ -9,9 +9,9 @@ from django.urls import reverse
 class amc_contract(models.Model):
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    company_id = models.ForeignKey("companys.Company", on_delete=models.CASCADE, related_name="amc_contracts")
+    company = models.ForeignKey("companys.Company", on_delete=models.CASCADE, related_name="amc_contracts")
     contract_number = models.CharField(max_length=100, unique=True, blank=True, null=True)
-    customer_id = models.ForeignKey("customers.CustomerUserProfile", on_delete=models.CASCADE, related_name="amc_contracts")
+    customer = models.ForeignKey("customers.CustomerUserProfile", on_delete=models.CASCADE, related_name="amc_contracts")
     description = models.TextField(blank=True, null=True)
     start_date = models.DateField()
     end_date = models.DateField()
@@ -20,7 +20,7 @@ class amc_contract(models.Model):
     is_active = models.BooleanField(default=True)
     visit_frequency = models.IntegerField(blank=True, null=True)
     visit_count = models.IntegerField(blank=True, null=True)
-
+    total_contract_year = models.PositiveIntegerField()
 
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
     updated_at = models.DateTimeField(auto_now=True, editable=False)
@@ -45,12 +45,10 @@ class amc_visit(models.Model):
     company_id = models.ForeignKey("companys.Company", on_delete=models.CASCADE, related_name="amc_visits", blank=True, null=True)
     contract_id = models.ForeignKey("amc.amc_contract", on_delete=models.CASCADE, related_name="amc_visits", blank=True, null=True)
     visit_date = models.DateField(blank=True, null=True)
+
     # job_id
     technician = models.ForeignKey("technicians.TechnicianUserProfile", on_delete=models.CASCADE, related_name="amc_visits", blank=True, null=True)
     completed_at = models.DateTimeField(blank=True, null=True)
-    # invoice
-
-
 
 
 

@@ -19,6 +19,10 @@ class inventory_item(models.Model):
     unit_price = models.DecimalField(max_digits=12, decimal_places=2, default=0.00)
     bought_at = models.DateTimeField()
 
+
+    is_sold = models.BooleanField(default=False)
+    sold_to = models.ForeignKey("customers.CustomerUserProfile", on_delete=models.SET_NULL, related_name="sold_to_customer")
+
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -49,6 +53,7 @@ class Customer_RO_Purifier(models.Model):
     installation_date = models.DateField(blank=True)
     warranty = models.PositiveIntegerField(blank=True)
     warranty_ending_date = models.DateField(blank=True)
+    is_under_warranty = models.BooleanField(default=True)
 
     last_service_date = models.DateField(blank=True)
 
@@ -57,12 +62,12 @@ class Customer_RO_Purifier(models.Model):
     amc_is_active = models.BooleanField(default=False)
 
 
-
     # IOT device endpoint
+    # telemetry = models.ForeignKey
 
 
-
-
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         verbose_name = ("Customer_RO_Purifier")
