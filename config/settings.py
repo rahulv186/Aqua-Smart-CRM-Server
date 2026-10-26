@@ -33,6 +33,9 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rest_framework_simplejwt.token_blacklist",  # <--- Tracks refresh tokens & enables blacklisting
+    'django_filters',         # For django-filter
+    'phonenumber_field',      # For django-phonenumber-field
+    'django_fsm',             # For django-fsm
 
     "rest_framework",
     "drf_spectacular",

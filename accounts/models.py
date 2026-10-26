@@ -2,7 +2,7 @@ import uuid
 
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.db import models
-
+from phonenumber_field.modelfields import PhoneNumberField
 
 class CustomUserManager(BaseUserManager):
     """Custom user model manager where email is the unique identifier"""
@@ -37,7 +37,8 @@ class User(AbstractUser):
     username = None  # Removed username
     email = models.EmailField(unique=True)
     full_name = models.CharField(max_length=150, default="", blank=True, null=True)
-    phone = models.CharField(max_length=20, blank=True, null=True)
+    phone = PhoneNumberField(region="IN", blank=True, null=True) 
+    # Changed the phone from CharField to PhoneNumberField
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["full_name"]
 

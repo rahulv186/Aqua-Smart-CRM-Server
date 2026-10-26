@@ -20,7 +20,7 @@ class amc_contract(models.Model):
     is_active = models.BooleanField(default=True)
     visit_frequency = models.IntegerField(blank=True, null=True)
     visit_count = models.IntegerField(blank=True, null=True)
-    total_contract_year = models.PositiveIntegerField()
+    total_contract_year = models.PositiveIntegerField(blank=True, null=True)
 
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
     updated_at = models.DateTimeField(auto_now=True, editable=False)
@@ -30,7 +30,7 @@ class amc_contract(models.Model):
 
         db_table = "amc_contracts"
         ordering = ["id"]
-        unique_together = ("company_id", "contract_number")
+        unique_together = ("company", "contract_number")
 
     def __str__(self):
         return self.contract_number

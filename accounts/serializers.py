@@ -4,6 +4,7 @@ from django.contrib.auth import get_user_model
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework import exceptions
 from django.contrib.auth.models import update_last_login
+from phonenumber_field.serializerfields import PhoneNumberField
 
 User = get_user_model()
 
@@ -13,6 +14,7 @@ class RegisterSerializer(serializers.ModelSerializer):
         required = True,
         style = {"input_type" : "password"}
     )
+    phone = PhoneNumberField()
 
     class Meta:
         model = User

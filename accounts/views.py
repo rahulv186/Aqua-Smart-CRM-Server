@@ -62,9 +62,9 @@ def register(request, company_slug):
                     "id": str(user.id),
                     "full_name":user.full_name,
                     "email":user.email,
-                    "phone":user.phone,
+                    "phone":str(user.phone),
                     "password":user.password,
-                    "company":company
+                    "company":company.slug
                 },
                 "tokens":{
                     "refresh_token":str(refresh),
