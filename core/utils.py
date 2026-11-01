@@ -1,7 +1,9 @@
 import string
 from django.utils.crypto import get_random_string
 from rest_framework.permissions import BasePermission
-
+from managers.models import ManagerUserProfile
+from companys.models import CompanyOwnerProfile
+from hr.models import HRUserProfile
 
 def generate_unique_code(model_class, field_name, prefix="EMP", length=6):
     # Example: EMP-7K3X9M, CUST-2W8Y1P
@@ -17,7 +19,6 @@ def generate_unique_code(model_class, field_name, prefix="EMP", length=6):
         if not model_class.objects.filter(**{field_name: code}).exists():
             return code
 
-
 class IsSuperUser(BasePermission):
     """
     Allows access only to superusers.
@@ -29,11 +30,7 @@ class IsSuperUser(BasePermission):
             request.user and request.user.is_authenticated and request.user.is_superuser
         )
 
-
 class IsOwnerOfCompany(BasePermission):
-    """
-    Ensures the user is an owner AND belongs to the specific company in the URL slug.
-    """
 
     def has_permission(self, request, view):
         if not request.user or not request.user.is_authenticated:
@@ -49,42 +46,77 @@ class IsOwnerOfCompany(BasePermission):
 
         # Verify tenant match
         return request.user.company_owner_profile.company.slug == company_slug
-
-
+    
 class IsManager(BasePermission):
     """
     Allows access only to users who are managers.
     """
 
     def has_permission(self, request, view):
-        return bool(
-            request.user
-            and request.user.is_authenticated
-            and hasattr(
-                request.user, "manager_profile"
-            )  # Adjust if your manager model uses a different related_name or field
-        )
+        if not request.user or not request.user.is_authenticated:
+            return False
+
+        company_slug = view.kwargs.get('company_slug')
+        if not company_slug:
+            return False
+
+        is_manager = ManagerUserProfile.objects.filter(
+                    user=request.user, 
+                    company__slug=company_slug
+                ).exists()
+
+        return is_manager
 
 
 class IsOwnerOrManager(BasePermission):
     def has_permission(self, request, view):
-        return bool(
-            (request.user)
-            and (request.user.is_authenticated)
-            and (
-                (hasattr(request.user, "manager_profile"))
-                or hasattr(request.user, "company_owner_profile")
-            )
-        )
+        if not request.user or not request.user.is_authenticated:
+            return False
 
+        company_slug = view.kwargs.get('company_slug')
+        if not company_slug:
+            return False
+
+        # Check if a manager profile exists for this user in this company
+        is_manager = ManagerUserProfile.objects.filter(
+            user=request.user, 
+            company__slug=company_slug
+        ).exists()
+
+        # Check if an owner profile exists for this user in this company
+        is_owner = CompanyOwnerProfile.objects.filter(
+            user=request.user, 
+            company__slug=company_slug
+        ).exists()
+
+        return is_manager or is_owner
 class IsOwnerOrManagerOrHR(BasePermission):
     def has_permission(self, request, view):
-        return bool(
-            (request.user)
-            and (request.user.is_authenticated)
-            and (
-                (hasattr(request.user, "manager_profile"))
-                or hasattr(request.user, "company_owner_profile")
-                or hasattr(request.user, "hr_profile")
-            )
-        )
+        if not request.user or not request.user.is_authenticated:
+            return False
+
+        company_slug = view.kwargs.get('company_slug')
+        if not company_slug:
+            return False
+        
+                # Check if a manager profile exists for this user in this company
+        is_manager = ManagerUserProfile.objects.filter(
+                    user=request.user, 
+                    company__slug=company_slug
+                ).exists()
+        
+                # Check if an owner profile exists for this user in this company
+        is_owner = CompanyOwnerProfile.objects.filter(
+                    user=request.user, 
+                    company__slug=company_slug
+                ).exists()
+
+        is_hr = HRUserProfile.objects.filter(
+            user=request.user, 
+            company__slug=company_slug
+        ).exists()
+        
+        return is_manager or is_owner or is_hr
+
+        
+        

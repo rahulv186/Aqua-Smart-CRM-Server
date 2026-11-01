@@ -51,7 +51,7 @@ def verify_invite_link(request):
     return Response({
         "message":"Invite Link is verified and Legit",
         "email":invitation.email,
-        "company":invitation.company
+        "company":str(invitation.company),
     }, status=HTTP_200_OK)
 
 

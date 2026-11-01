@@ -6,9 +6,11 @@ from accounts.views import SuperUserTokenObtainPairView
 from accounts.serializers import TenantEmailTokenObtainPairSerializer
 from accounts import views as accounts_views
 from companys import views as company_views
+from customers import views as customer_views
 from managers import views as manager_views
 from technicians import views as technician_views
 from hr import views as hr_views
+from assets import views as assets_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -16,9 +18,19 @@ urlpatterns = [
 
     path('api/<slug:company_slug>/login', TokenObtainPairView.as_view(serializer_class=TenantEmailTokenObtainPairSerializer), name='token_obtain_pair'),
     path('api/<slug:company_slug>/token/refresh', TokenRefreshView.as_view(), name='token_refresh'),
-    path('api/<slug:company_slug>/register', accounts_views.register, name='register'),
+
+
+    # Customer Registration and Profile
+    path('api/<slug:company_slug>/customer/register', accounts_views.register, name='register'),
+    path('api/<slug:company_slug>/customer/profile', customer_views.register, name='customer_profile'),
 
     path('api/<slug:company_slug>/me', accounts_views.me, name='me'),
+
+    # Purifiers
+    path('api/<slug:company_slug>/purifiers/', assets_views.purifier_list, name='purifier_list'),
+    path('api/<slug:company_slug>/purifiers/create/', assets_views.purifier_create, name='purifier_create'),
+    path('api/<slug:company_slug>/purifiers/<uuid:pk>/', assets_views.purifier_detail, name='purifier_detail'),
+    path('api/<slug:company_slug>/my-purifier/', assets_views.my_purifier, name='my_purifier_details'),
 
     # SuperUserOnly : Company Creation
     path('api/secret/create-company', company_views.createCompany),
@@ -29,7 +41,7 @@ urlpatterns = [
 
     # Manager Onboarding
     path('api/<slug:company_slug>/managers/send-invite/', company_views.send_manager_invite, name='send_manager_invite'),
-    path('api/<slug:company_slug>/managers/verify-invite/', manager_views.verify_invite_link, name='verify_manager_invite'),
+    path('api/managers/verify-invite/', manager_views.verify_invite_link, name='verify_manager_invite'),
     path('api/<slug:company_slug>/managers/accept-manager-invite/', manager_views.accept_manager_invite, name='accept_manager_invite'),
     path('api/<slug:company_slug>/managers/manager-onboarding/', manager_views.manager_onboarding, name='update_manager_profile'),
 

@@ -28,8 +28,8 @@ class RegisterNewCustomerSerializer(serializers.ModelSerializer):
         customer_code = f"{company.short_name}-CUST-{uuid.uuid4().hex[:6].upper()}"
 
         customer_profile = CustomerUserProfile.objects.create(
-            user_id = user,
-            company_id = company,
+            user = user,
+            company = company,
             customer_code = customer_code,
             **validated_data
         )

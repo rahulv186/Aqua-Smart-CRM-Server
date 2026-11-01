@@ -1,0 +1,108 @@
+{
+
+  SUPERUSER
+
+  "refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc5NDEwMjY0NSwiaWF0IjoxNzkzNDk3ODQ1LCJqdGkiOiI0Yjg5MmMwYzlmZTc0N2FmYmQ2ZDI0MTBlYmFmY2I0MSIsInVzZXJfaWQiOiIzZTFjMDc5ZS1mMjQ4LTQyNGEtOThhZC0wMmU2YjZmNjA3M2EifQ.ConqTzayZHopxYbTBcs6vifJ9Iq27VRZh8wZo2az9hE",
+  "access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzkzNTAxNDQ1LCJpYXQiOjE3OTM0OTc4NDYsImp0aSI6ImY3NTg3ODRiNzA4NzRkM2M4ZjhiZTA1OGYyNDY0ZTYyIiwidXNlcl9pZCI6IjNlMWMwNzllLWYyNDgtNDI0YS05OGFkLTAyZTZiNmY2MDczYSJ9.LsqMvOZ7EKeJxdhV5fof9FuUwENUEMHpW6w8p8h3h24"
+}
+
+
+COMPANY OWNER AND COMPANY
+
+{
+  "message": "Company Created Successfully",
+  "slug": "test1",
+  "plan_active_till": "2028-11-01",
+  "company owner email": "test1@gmail.com",
+  "temporary password": "hE6nWMZWSAtU"
+
+  {
+  "access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzkzNTE0Nzc2LCJpYXQiOjE3OTM1MTExNzYsImp0aSI6ImJlNzkyYTY5ZTZhNTQ0YjliYzdiMDQ4YWNmMDY3YTkwIiwidXNlcl9pZCI6ImVkNGNjZmYyLTY4M2ItNDVjZC05MTY5LWVmZTYxYjNlYmM4NiJ9.qB3QimQam6SCvn0OYj_4Q1ZYUuN_eVe7LWXJBN6QouE",
+  "refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc5NDExNTk3NiwiaWF0IjoxNzkzNTExMTc2LCJqdGkiOiI4ZTcyMWE4MDM4ZGE0ZDdiYTlhOGE3NTdiMzY3ZjcyMSIsInVzZXJfaWQiOiJlZDRjY2ZmMi02ODNiLTQ1Y2QtOTE2OS1lZmU2MWIzZWJjODYifQ.oACH1r6FLaaTpVLmSECXKBmIKhyd6tIgm5rGWhksoSE"
+}
+
+}
+
+
+
+MANAGER 1
+
+{
+  "access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzkzNTEyMjE1LCJpYXQiOjE3OTM1MDg2MTUsImp0aSI6IjZhZWI0MmQ5MzBlNTQ1MmY4YmNmMDQxNWI1NTdhZTY0IiwidXNlcl9pZCI6IjYzMGI3MWY2LTgyYjUtNDkxNi1iMjRlLThmMmIyMDZhYzg2NSJ9.ZUcVuK7vHvy3y4NRNcCcCH3okVx3F4z1MmSGN7Mampc",
+  "refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc5NDExMzQxNSwiaWF0IjoxNzkzNTA4NjE1LCJqdGkiOiIyMjhhYjZjYTA5ZTE0M2M0YWFmMzdjMjhiYTI0NDBlNyIsInVzZXJfaWQiOiI2MzBiNzFmNi04MmI1LTQ5MTYtYjI0ZS04ZjJiMjA2YWM4NjUifQ.YR6WtoLujGv_LyoTkeidl8jV00ihvFUQXpze2OlAZnk"
+}
+
+MANAGER 2        test1manager@gmail.com            Test1Manager2
+{
+  "message": "Account Created and Manager Profile Setup Done",
+  "refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc5NDExNjI5NCwiaWF0IjoxNzkzNTExNDk0LCJqdGkiOiIzZGRjNTI4YTQ0ZGE0OWQ5OTRiNzU2N2QwZTc1NGY2YiIsInVzZXJfaWQiOiI1Y2RjYjg3Yy1kYTFmLTQzZmMtYWFlYi02MGQ3MjI2NTE5NTEifQ._PMgqQGCfjAaaVUb4770aFbFL4UCZ0WhUfFHYkA1HfY",
+  "access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzkzNTE1MDk0LCJpYXQiOjE3OTM1MTE0OTQsImp0aSI6ImVjODQ1MGE3YTY4OTQ5MDJiMzczN2JlMGJmMWFlNTJlIiwidXNlcl9pZCI6IjVjZGNiODdjLWRhMWYtNDNmYy1hYWViLTYwZDcyMjY1MTk1MSJ9.9jsL1U-Kn8zsh4NnLS8nvkPFlJZj_GpKFNSFMxtoCoI"
+}
+
+
+
+
+
+
+TECHNICIAN 1
+{
+  "message": "Technician User and Profile are Generated and Filled",
+  "user": {
+    "email": "test1technician@gmail.com",
+    "password": "51DPfj1Y"
+  },
+  "profile": {
+    "name": "technician test1",
+    "employee_code": "TEC-1FVX",
+    "is_active": true
+  }
+  {
+  "refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc5NDEwMzgwNywiaWF0IjoxNzkzNDk5MDA3LCJqdGkiOiI4MWVhNjcyNDA3N2Q0ZTI5OTQ5NDAyZjMyYjIzOGI3YSIsInVzZXJfaWQiOiJjMDAxMzBhNC04M2NlLTQwOTgtYmFiMi0wNDg5NDk2MDM0OTUifQ.b4nEHJhplzJwFAT0vuWTGTTGpuLKRciVg27YtYZJfLs",
+  "access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzkzNTAyNjA3LCJpYXQiOjE3OTM0OTkwMDcsImp0aSI6IjAwNjAyNmUxOTEzZTQ0MGRiNjQxM2EzMDlkOTMyMDhjIiwidXNlcl9pZCI6ImMwMDEzMGE0LTgzY2UtNDA5OC1iYWIyLTA0ODk0OTYwMzQ5NSJ9.5Pp2YLZvLq2Ng0X7lH06bbcxTrtakAcntI2SNt7Bqxg"
+}
+}
+
+
+
+
+CUSTOMER 1
+{
+  "message": "Created Successfully",
+  "user": {
+    "id": "80602935-d391-4f86-8846-355799e1e8b1",
+    "full_name": "test1 customer",
+    "email": "test1customer@gmail.com",
+    "phone": "+919840562631",
+    "password": "pbkdf2_sha256$1000000$kYeql8q9KdII81CNrJ8OUE$Lo13h+mL/d3VW02HGPbojp5OjE6Wnu0SIxqKFwnqwcQ=",
+    "company": "test1"
+  },
+  "tokens": {
+  "access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzkzNTExMzIxLCJpYXQiOjE3OTM1MDc3MjEsImp0aSI6IjBiNWZiZTcwNzY1YjRmYzM5MjVkNWNiMDNiMmY4ZDRkIiwidXNlcl9pZCI6IjgwNjAyOTM1LWQzOTEtNGY4Ni04ODQ2LTM1NTc5OWUxZThiMSJ9.xIlYah0a-fMDxdHr0Pq0MQU0ZxS4ByvbqGhWvarwaCs",
+  "refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc5NDExMjUyMSwiaWF0IjoxNzkzNTA3NzIxLCJqdGkiOiIwYTAyYTZkNzAzMDM0MzlkOWZiZjc5ODUzZWMzYWU4OCIsInVzZXJfaWQiOiI4MDYwMjkzNS1kMzkxLTRmODYtODg0Ni0zNTU3OTllMWU4YjEifQ.wEEo0E2VCT1h2SIIyhMCzifm7buGC2IoOwlWQQthzhw"
+}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+invite link 
+{
+  "message": "Invite link created",
+  "link": "http://app.aquasmart.ai/accept-invite?token=5e4bac6c-cd38-47ac-a704-69fa50b4fb0a"
+}
