@@ -4,77 +4,57 @@ from django.db import models
 from django.urls import reverse
 
 # Create your models here.
-
-
-class inventory_item(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    company = models.ForeignKey("companys.Company", on_delete=models.CASCADE, related_name="inventory_items")
-    item_code = models.CharField(max_length=50, unique=True, blank=True, null=True)
-    batch_code = models.CharField(max_length = 100, blank=True, null=True)
-    item_image = models.ForeignKey("files.files", on_delete=models.SET_NULL, related_name="inventory_item", blank=True, null=True)
-    item_type = models.CharField(max_length=100, blank=True, null=True)
-    name = models.CharField(max_length=255, blank=True)
-    description = models.TextField(blank=True, null=True)
-    quantity = models.PositiveIntegerField(default=0)
-    unit_price = models.DecimalField(max_digits=12, decimal_places=2, default=0.00)
-    bought_at = models.DateTimeField()
-
-
-    is_sold = models.BooleanField(default=False)
-    sold_to = models.ForeignKey("customers.CustomerUserProfile", on_delete=models.SET_NULL, blank=True, null=True,  related_name="sold_to_customer")
-
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    
-
-    class Meta:
-        verbose_name = ("inventory_item")
-        verbose_name_plural = ("inventory_items")
-
-    def __str__(self):
-        return self.name
-
-    def get_absolute_url(self):
-        return reverse("inventory_item_detail", kwargs={"pk": self.pk})
-
-
+import uuid
+from django.db import models
+from django_fsm import FSMField, transition
+from companys.models import Company
+from customers.models import CustomerUserProfile
 
 class Customer_RO_Purifier(models.Model):
+    class PurifierStatus(models.TextChoices):
+        IN_WAREHOUSE = 'in_warehouse', 'In Warehouse'
+        INSTALLED = 'installed', 'Installed'
+        OUT_OF_SERVICE = 'out_of_service', 'Out of Service'
+        DECOMMISSIONED = 'decommissioned', 'Decommissioned'
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    company = models.ForeignKey("companys.Company", on_delete=models.CASCADE, related_name="ro_purifiers")
-    item_code = models.CharField(max_length=10, unique=True)
-    customer = models.ForeignKey("customers.CustomerUserProfile", on_delete=models.SET_NULL, related_name="ro_unit", null=True, blank=True)
-    serial_number = models.CharField(max_length=50, unique=True)
-    model_name = models.CharField(max_length=255)
-    capacity = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True, help_text="Capacity in litres")
-    purchase_date = models.DateField(blank=True)
-    installation_date = models.DateField(blank=True)
-    warranty = models.PositiveIntegerField(blank=True)
-    warranty_ending_date = models.DateField(blank=True)
-    is_under_warranty = models.BooleanField(default=True)
-
-    last_service_date = models.DateField(blank=True)
-
-    has_amc_contract = models.BooleanField(default=False)
-    amc_contract = models.ForeignKey("amc.amc_contract", on_delete=models.SET_NULL, blank=True, null=True, related_name="customer_ro_unit")
-    amc_is_active = models.BooleanField(default=False)
-
-
-    # IOT device endpoint
-    # telemetry = models.ForeignKey
-
-
+    company = models.ForeignKey(Company, on_delete=models.CASCADE, related_name='purifiers')
+    
+    # Hardware / Model Details
+    model_number = models.CharField(max_length=100, help_text="e.g., Kent Grand+, Aquaguard Aura", default="Unknown Model")
+    serial_number = models.CharField(max_length=100, unique=True, help_text="Unique barcode/QR serial number")
+    capacity = models.CharField(max_length=50, blank=True, null=True, help_text="e.g., 10L, 15L/hr")
+    
+    # Assignment (Null when sitting in the warehouse, populated upon installation)
+    customer = models.ForeignKey(
+        CustomerUserProfile, 
+        on_delete=models.SET_NULL, 
+        null=True, 
+        blank=True, 
+        related_name='purifiers'
+    )
+    
+    # Lifecycle State Management (django-fsm)
+    status = FSMField(
+        default=PurifierStatus.IN_WAREHOUSE, 
+        choices=PurifierStatus.choices, 
+        protected=True
+    )
+    
+    installation_date = models.DateField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        verbose_name = ("Customer_RO_Purifier")
-        verbose_name_plural = ("Customer_RO_Purifiers")
+        unique_together = ('company', 'serial_number')
+        ordering = ['-created_at']
 
     def __str__(self):
-        return self.name
+        return f"{self.model_number} ({self.serial_number}) - {self.status}"
 
-    def get_absolute_url(self):
-        return reverse("Customer_RO_Purifier_detail", kwargs={"pk": self.pk})
+    # FSM Transitions
+    @transition(field=status, source=PurifierStatus.IN_WAREHOUSE, target=PurifierStatus.INSTALLED)
+    def install_unit(self, customer_profile, install_date):
+        self.customer = customer_profile
+        self.installation_date = install_date
+
