@@ -4,6 +4,62 @@ info:
   version: 1.0.0
   description: API for RO service business management.
 paths:
+  /api/{company_slug}/customer/profile:
+    post:
+      operationId: customer_profile_create
+      parameters:
+      - in: path
+        name: company_slug
+        schema:
+          type: string
+        required: true
+      tags:
+      - customer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterNewCustomer'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/RegisterNewCustomer'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/RegisterNewCustomer'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/{company_slug}/customer/register:
+    post:
+      operationId: customer_register_create
+      parameters:
+      - in: path
+        name: company_slug
+        schema:
+          type: string
+        required: true
+      tags:
+      - customer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Register'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Register'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Register'
+        required: true
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
   /api/{company_slug}/hr/create-hr:
     post:
       operationId: hr_create_hr_create
@@ -183,23 +239,6 @@ paths:
               schema:
                 description: Invitation sent successfully.
           description: ''
-  /api/{company_slug}/managers/verify-invite/:
-    get:
-      operationId: managers_verify_invite_retrieve
-      parameters:
-      - in: path
-        name: company_slug
-        schema:
-          type: string
-        required: true
-      tags:
-      - managers
-      security:
-      - jwtAuth: []
-      - {}
-      responses:
-        '200':
-          description: No response body
   /api/{company_slug}/me:
     get:
       operationId: me_retrieve
@@ -219,6 +258,28 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/UserMeResponse'
+          description: ''
+  /api/{company_slug}/my-purifier/:
+    get:
+      operationId: my_purifier_list
+      parameters:
+      - in: path
+        name: company_slug
+        schema:
+          type: string
+        required: true
+      tags:
+      - my-purifier
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CustomerROPurifier'
           description: ''
   /api/{company_slug}/owner-onboarding:
     post:
@@ -273,9 +334,9 @@ paths:
       responses:
         '200':
           description: No response body
-  /api/{company_slug}/register:
-    post:
-      operationId: register_create
+  /api/{company_slug}/purifiers/:
+    get:
+      operationId: purifiers_list
       parameters:
       - in: path
         name: company_slug
@@ -283,25 +344,113 @@ paths:
           type: string
         required: true
       tags:
-      - register
+      - purifiers
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CustomerROPurifier'
+          description: ''
+  /api/{company_slug}/purifiers/{id}/:
+    get:
+      operationId: purifiers_retrieve
+      parameters:
+      - in: path
+        name: company_slug
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - purifiers
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerROPurifier'
+          description: ''
+    put:
+      operationId: purifiers_update
+      parameters:
+      - in: path
+        name: company_slug
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - purifiers
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Register'
+              $ref: '#/components/schemas/CustomerROPurifier'
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/Register'
+              $ref: '#/components/schemas/CustomerROPurifier'
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/Register'
+              $ref: '#/components/schemas/CustomerROPurifier'
         required: true
       security:
       - jwtAuth: []
-      - {}
       responses:
         '200':
-          description: No response body
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerROPurifier'
+          description: ''
+  /api/{company_slug}/purifiers/create/:
+    post:
+      operationId: purifiers_create_create
+      parameters:
+      - in: path
+        name: company_slug
+        schema:
+          type: string
+        required: true
+      tags:
+      - purifiers
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerROPurifier'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CustomerROPurifier'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CustomerROPurifier'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerROPurifier'
+          description: ''
   /api/{company_slug}/technician/create-technician:
     post:
       operationId: technician_create_technician_create
@@ -396,6 +545,17 @@ paths:
               schema:
                 $ref: '#/components/schemas/SuperUserTokenObtainPair'
           description: ''
+  /api/managers/verify-invite/:
+    get:
+      operationId: managers_verify_invite_retrieve
+      tags:
+      - managers
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
   /api/schema/:
     get:
       operationId: schema_retrieve
@@ -764,6 +924,56 @@ components:
       - email
       - name
       - phone
+    CustomerROPurifier:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        model_number:
+          type: string
+          description: e.g., Kent Grand+, Aquaguard Aura
+          maxLength: 100
+        serial_number:
+          type: string
+          description: Unique barcode/QR serial number
+          maxLength: 100
+        capacity:
+          type: string
+          nullable: true
+          description: e.g., 10L, 15L/hr
+          maxLength: 50
+        customer:
+          type: string
+          format: uuid
+          nullable: true
+        customer_name:
+          type: string
+          readOnly: true
+        status:
+          allOf:
+          - $ref: '#/components/schemas/StatusEnum'
+          readOnly: true
+        installation_date:
+          type: string
+          format: date
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - created_at
+      - customer_name
+      - id
+      - serial_number
+      - status
+      - updated_at
     ManagerProfileOnboard:
       type: object
       properties:
@@ -832,14 +1042,14 @@ components:
         * `overdue` - Overdue
     PlanEnum:
       enum:
-      - basic
-      - standard
       - premium
+      - standard
+      - basic
       type: string
       description: |-
-        * `basic` - Basic
-        * `standard` - Standard
         * `premium` - Premium
+        * `standard` - Standard
+        * `basic` - Basic
     Register:
       type: object
       properties:
@@ -857,8 +1067,6 @@ components:
           maxLength: 150
         phone:
           type: string
-          nullable: true
-          maxLength: 20
         password:
           type: string
           writeOnly: true
@@ -866,6 +1074,47 @@ components:
       - email
       - id
       - password
+      - phone
+    RegisterNewCustomer:
+      type: object
+      properties:
+        name:
+          type: string
+          nullable: true
+          maxLength: 150
+        addressLine1:
+          type: string
+          nullable: true
+          maxLength: 255
+        addressLine2:
+          type: string
+          nullable: true
+          maxLength: 255
+        age:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+          nullable: true
+        alternate_contact:
+          type: string
+          nullable: true
+          maxLength: 20
+        city:
+          type: string
+          nullable: true
+          maxLength: 100
+        state:
+          type: string
+          nullable: true
+          maxLength: 100
+        country:
+          type: string
+          nullable: true
+          maxLength: 100
+        postal_code:
+          type: string
+          nullable: true
+          maxLength: 20
     SendInvite:
       type: object
       properties:
@@ -874,6 +1123,18 @@ components:
           format: email
       required:
       - email
+    StatusEnum:
+      enum:
+      - in_warehouse
+      - installed
+      - out_of_service
+      - decommissioned
+      type: string
+      description: |-
+        * `in_warehouse` - In Warehouse
+        * `installed` - Installed
+        * `out_of_service` - Out of Service
+        * `decommissioned` - Decommissioned
     SuperUserTokenObtainPair:
       type: object
       properties:
