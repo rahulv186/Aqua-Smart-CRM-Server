@@ -11,6 +11,7 @@ from managers import views as manager_views
 from technicians import views as technician_views
 from hr import views as hr_views
 from assets import views as assets_views
+from jobs import views as jobs_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -53,6 +54,11 @@ urlpatterns = [
     # Technician Creating / Onboarding
     path('api/<slug:company_slug>/technician/create-technician', technician_views.create_technician, name="create-technician"),
 
+
+
+    # Service Tickets
+    path('api/<slug:company_slug>/tickets/create_ticket_staff', jobs_views.create_ticket_staff, name='create_ticket_staff'),
+    path('api/<slug:company_slug>/tickets/create_ticket', jobs_views.create_ticket, name='create_ticket'),
 
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
     path('api/docs/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),

@@ -1,13 +1,17 @@
 from django.db import models
 from django_fsm import FSMField, transition
 import uuid
-from django.urls import reverse
 
 
 class ServiceTicket(models.Model):
     class TicketType(models.TextChoices):
         AD_HOC = 'AD_HOC', 'Customer Service Request'
         AMC = 'AMC', 'Annual Maintenance Contract Visit'
+        BREAKDOWN = 'breakdown', 'Machine Breakdown / Repair'
+        PERIODIC_MAINTENANCE = 'maintenance', 'Scheduled Filter/Service'
+        INSTALLATION = 'installation', 'New Installation'
+        IOT_ALERT = 'iot_alert', 'Automated IoT Anomaly Alert'
+        COMPLAINT = 'complaint', 'Customer Complaint (Service/Behavior/Quality)'  # 👈 Added
 
     class TicketState(models.TextChoices):
         OPEN = 'OPEN', 'Open / Unassigned'
@@ -20,8 +24,9 @@ class ServiceTicket(models.Model):
     ticket_type = models.CharField(max_length=20, choices=TicketType.choices, default=TicketType.AD_HOC)
     
     # Relationships
-    customer = models.ForeignKey("accounts.User", on_delete=models.CASCADE, related_name="service_tickets")
+    customer = models.ForeignKey("customers.CustomerUserProfile", on_delete=models.CASCADE, related_name="service_tickets")
     purifier = models.ForeignKey("assets.Customer_RO_Purifier", on_delete=models.CASCADE, related_name="tickets")
+    company = models.ForeignKey("companys.Company", on_delete=models.CASCADE, related_name="service_tickets", null=True, blank=True)  # Nullable for initial creation; will be set in the view
     
     # The assigned technician (Nullable initially until the manager assigns one)
     technician = models.ForeignKey(
